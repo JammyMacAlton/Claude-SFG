@@ -1,0 +1,10 @@
+#section-5-AYvEdnjv,
+.Navbar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  background: #ffffff;
+  border-bottom: 3px solid #ffd166;
+  box-shadow: 0 2px 12px rgba(7, 48, 75, 0.09);
+}
