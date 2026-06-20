@@ -1,0 +1,143 @@
+<!--
+=========================================================
+  SFG NAVBAR — ALL-IN-ONE FOOTER CODE  (bulletproof GHL)
+
+  ⭐ THIS IS THE ONE TO USE. ⭐
+
+  WHERE THIS GOES IN GoHighLevel:
+  1. Open the page in the editor
+  2. Click  Settings  (gear, top-right)
+  3. Open the  "Custom Code"  /  "Footer Tracking Code"  box
+     (sometimes labelled  Tracking Code → Footer / Body)
+  4. Paste EVERYTHING below  →  Save  →  Publish
+
+  CLEAN UP FIRST:
+  - Empty the "Custom CSS" box you filled earlier (this file
+    already contains the CSS, so you don't need it twice).
+  - Delete any navbar HTML element you dragged onto the canvas.
+
+  Footer code is injected raw into the page, so <style> and
+  <script> are NOT stripped here, and the bar is not trapped
+  inside a GHL column. It uses position:fixed and pushes the
+  page content down automatically.
+=========================================================
+-->
+
+<style>
+#sfg-nb, #sfg-nb * { box-sizing: border-box; margin: 0; padding: 0; }
+
+#sfg-nb {
+  background: #ffffff;
+  border-bottom: 3px solid #ffd166;
+  box-shadow: 0 2px 12px rgba(7,48,75,.09);
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 999999;
+  width: 100%;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+#sfg-nb .sfg-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 36px;
+  height: 74px;
+}
+#sfg-nb .sfg-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+#sfg-nb .sfg-logo img { height: 56px; width: auto; display: block; }
+
+#sfg-nb .sfg-links { display: flex; align-items: center; list-style: none; gap: 0; height: 100%; margin: 0; }
+#sfg-nb .sfg-links li { height: 100%; display: flex; align-items: center; list-style: none; }
+#sfg-nb .sfg-links li a {
+  display: flex; align-items: center; height: 100%;
+  text-decoration: none; color: #07304b; font-size: 14.5px;
+  letter-spacing: .025em; padding: 0 15px; white-space: nowrap;
+  position: relative; transition: color .2s;
+}
+#sfg-nb .sfg-links li a::after {
+  content: ''; position: absolute; bottom: 0; left: 15px; right: 15px;
+  height: 3px; background: #ffd166; transform: scaleX(0);
+  transform-origin: center; transition: transform .25s ease;
+}
+#sfg-nb .sfg-links li a:hover { color: #c99a2e; }
+#sfg-nb .sfg-links li a:hover::after { transform: scaleX(1); }
+#sfg-nb .sfg-div { width: 1px; height: 20px; background: #cdd9e0; margin: 0 8px; flex-shrink: 0; }
+#sfg-nb .sfg-cta a {
+  background: #07304b; color: #ffd166; border-radius: 3px;
+  padding: 10px 22px; font-size: 13.5px; font-weight: 700;
+  letter-spacing: .05em; height: auto; margin-left: 6px;
+  transition: background .22s, color .22s;
+}
+#sfg-nb .sfg-cta a::after { display: none; }
+#sfg-nb .sfg-cta a:hover { background: #ffd166; color: #07304b; }
+
+#sfg-nb .sfg-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+#sfg-nb .sfg-burger span { display: block; width: 24px; height: 2px; background: #07304b; border-radius: 2px; transition: all .28s ease; }
+
+/* spacer so page content isn't hidden behind the fixed bar */
+#sfg-nb-spacer { height: 74px; width: 100%; }
+
+@media (max-width: 880px) {
+  #sfg-nb .sfg-inner { padding: 0 20px; height: 62px; }
+  #sfg-nb-spacer { height: 62px; }
+  #sfg-nb .sfg-burger { display: flex; }
+  #sfg-nb .sfg-links {
+    position: absolute; top: 100%; left: 0; right: 0;
+    background: #fff; border-top: 3px solid #ffd166;
+    flex-direction: column; align-items: stretch; height: auto;
+    gap: 0; max-height: 0; overflow: hidden;
+    transition: max-height .35s ease, box-shadow .35s ease;
+  }
+  #sfg-nb .sfg-links.open { max-height: 500px; box-shadow: 0 10px 28px rgba(7,48,75,.12); }
+  #sfg-nb .sfg-links li { height: auto; border-bottom: 1px solid #edf1f4; }
+  #sfg-nb .sfg-div { display: none; }
+  #sfg-nb .sfg-links li a { padding: 15px 26px; font-size: 15px; height: auto; }
+  #sfg-nb .sfg-links li a::after { display: none; }
+  #sfg-nb .sfg-cta { padding: 14px 18px; border-bottom: none; }
+  #sfg-nb .sfg-cta a { display: block; text-align: center; margin-left: 0; padding: 13px; width: 100%; }
+  #sfg-nb .sfg-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  #sfg-nb .sfg-burger.open span:nth-child(2) { opacity: 0; }
+  #sfg-nb .sfg-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+}
+@media (max-width: 480px) {
+  #sfg-nb .sfg-logo img { height: 42px; }
+}
+</style>
+
+<nav id="sfg-nb" role="navigation" aria-label="Main Navigation">
+  <div class="sfg-inner">
+    <a href="https://sfgtaxservice.com/home-5735" class="sfg-logo" aria-label="Solution Financial Group Home">
+      <img src="https://assets.cdn.filesafe.space/frh1FySyXd0r7cSut9EW/media/6a36fa546a6dd1b69a5c5745.png" alt="Solution Financial Group">
+    </a>
+    <div class="sfg-burger" id="sfgBurger" aria-label="Toggle menu"><span></span><span></span><span></span></div>
+    <ul class="sfg-links" id="sfgLinks">
+      <li><a href="https://sfgtaxservice.com/home-5735">Home</a></li>
+      <li><a href="https://sfgtaxservice.com/about-us">About Us</a></li>
+      <li><a href="https://sfgtaxservice.com/services">Services</a></li>
+      <li><a href="https://www.irs.gov/wheres-my-refund" target="_blank" rel="noopener">Track My Refund</a></li>
+      <li class="sfg-div" aria-hidden="true"></li>
+      <li class="sfg-cta"><a href="https://sfgtaxservice.com/new-client">New Client</a></li>
+    </ul>
+  </div>
+</nav>
+<div id="sfg-nb-spacer"></div>
+
+<script>
+(function(){
+  function ready(fn){ if(document.readyState!='loading'){fn();}else{document.addEventListener('DOMContentLoaded',fn);} }
+  ready(function(){
+    var b=document.getElementById('sfgBurger');
+    var n=document.getElementById('sfgLinks');
+    if(!b||!n) return;
+    b.addEventListener('click',function(){ n.classList.toggle('open'); b.classList.toggle('open'); });
+    n.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click',function(){ n.classList.remove('open'); b.classList.remove('open'); });
+    });
+    /* move the navbar to the very top of <body> so GHL columns can't trap it */
+    var nav=document.getElementById('sfg-nb');
+    if(nav && nav.parentNode!==document.body){ document.body.insertBefore(nav, document.body.firstChild); }
+  });
+})();
+</script>
