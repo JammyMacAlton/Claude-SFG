@@ -1,0 +1,239 @@
+<!--
+  ============================================================
+  SOUTHERN FINANCIAL GROUP — Hero Section
+  Custom HTML + JS Block
+  ============================================================
+  HOW TO USE IN YOUR WEB BUILDER:
+  1. Paste the entire contents of sfg-hero-styles.css into
+     your builder's "Custom CSS" or "Global Styles" area.
+  2. Paste THIS file into a "Custom HTML" or "Embed Code" block.
+  3. Done — the section is self-contained.
+
+  FONT — add this to your <head> or builder's font settings:
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+  ============================================================
+-->
+
+<section class="hero">
+  <div class="hero__bg"></div>
+
+  <!-- ── NAVIGATION ── -->
+  <nav class="nav">
+    <a class="nav__logo" href="#">
+      <div class="nav__logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 14l-3-3 1.41-1.41L11 12.17l4.59-4.58L17 9l-6 6z"/></svg>
+      </div>
+      <div class="nav__logo-text">Southern Financial<br><span>Group</span></div>
+    </a>
+
+    <ul class="nav__links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Track My Refund</a></li>
+    </ul>
+
+    <button class="nav__cta" onclick="document.getElementById('sfg-form').scrollIntoView({behavior:'smooth'})">
+      Get Started
+    </button>
+  </nav>
+
+  <!-- ── HERO BODY ── -->
+  <div class="hero__body">
+
+    <!-- LEFT: Copy & CTAs -->
+    <div class="hero__content">
+
+      <div class="hero__badge">
+        <div class="hero__badge-dot"></div>
+        <span>Trusted Tax Professionals</span>
+      </div>
+
+      <h1 class="hero__headline">
+        Simplified<br>
+        <em>Tax Filing</em><br>
+        Process
+      </h1>
+
+      <p class="hero__sub-headline">Maximum Refunds. Minimum Stress.</p>
+
+      <p class="hero__description">
+        Southern Financial Group makes tax season simple. Our certified
+        professionals handle everything — from individual returns to small
+        business filings — so you keep more of what you earn.
+      </p>
+
+      <div class="hero__actions">
+        <a href="#sfg-form" class="btn-primary" onclick="document.getElementById('sfg-form').scrollIntoView({behavior:'smooth'}); return false;">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          File My Taxes Now
+        </a>
+        <a href="#" class="btn-secondary">Track My Refund →</a>
+      </div>
+
+      <!-- Trust Strip -->
+      <div class="hero__trust">
+        <div class="trust-item">
+          <div class="trust-item__icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          </div>
+          <div class="trust-item__text">
+            <strong>IRS Certified</strong>
+            <span>Enrolled Agents</span>
+          </div>
+        </div>
+
+        <div class="trust-item">
+          <div class="trust-item__icon">
+            <svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+          </div>
+          <div class="trust-item__text">
+            <strong>Year-Round</strong>
+            <span>Tax Support</span>
+          </div>
+        </div>
+
+        <div class="trust-item">
+          <div class="trust-item__icon">
+            <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+          </div>
+          <div class="trust-item__text">
+            <strong>Max Refund</strong>
+            <span>Guarantee</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Lead Form + Stats -->
+    <div class="hero__card-wrap">
+
+      <!-- Lead Capture Form -->
+      <div class="card card--primary" id="sfg-form">
+        <div class="card__label">Free Consultation</div>
+        <div class="card__title">Get Your Maximum Refund Today</div>
+        <form class="card__form" id="sfgLeadForm" novalidate>
+          <input class="card__input" type="text"  id="sfgName"    placeholder="Full Name"      required />
+          <input class="card__input" type="email" id="sfgEmail"   placeholder="Email Address"  required />
+          <input class="card__input" type="tel"   id="sfgPhone"   placeholder="Phone Number"   required />
+          <select class="card__input" id="sfgService" required style="appearance:none; -webkit-appearance:none;">
+            <option value="" disabled selected>Select a Service</option>
+            <option>Individual Tax Return</option>
+            <option>Business Tax Return</option>
+            <option>Tax Planning</option>
+            <option>Back Taxes / IRS Issues</option>
+          </select>
+          <button class="card__submit" type="submit">Schedule Free Consultation →</button>
+          <p class="card__note" id="sfgMsg"></p>
+          <p class="card__note">No obligation. 100% confidential.</p>
+        </form>
+      </div>
+
+      <!-- Stats Strip -->
+      <div class="card">
+        <div class="stat-strip">
+          <div class="stat">
+            <div class="stat__number" data-target="15000" data-suffix="k+">0</div>
+            <div class="stat__label">Returns Filed</div>
+          </div>
+          <div class="stat">
+            <div class="stat__number" data-target="2" data-prefix="$" data-suffix="M+">0</div>
+            <div class="stat__label">Refunds Secured</div>
+          </div>
+          <div class="stat">
+            <div class="stat__number" data-target="98" data-suffix="%">0</div>
+            <div class="stat__label">Client Satisfaction</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="hero__accent-line"></div>
+</section>
+
+<!-- ── JAVASCRIPT ── -->
+<script>
+(function () {
+
+  /* ── Animated counters ── */
+  function animateCounter(el) {
+    var target   = parseInt(el.dataset.target, 10);
+    var prefix   = el.dataset.prefix  || '';
+    var suffix   = el.dataset.suffix  || '';
+    var duration = 1800;
+    var start    = null;
+
+    function step(timestamp) {
+      if (!start) start = timestamp;
+      var progress = Math.min((timestamp - start) / duration, 1);
+      var eased    = 1 - Math.pow(1 - progress, 3);
+      var value    = Math.floor(eased * target);
+
+      if (suffix === 'k+') {
+        el.textContent = prefix + (value >= 1000 ? Math.floor(value / 1000) + 'k+' : value);
+      } else {
+        el.textContent = prefix + value + (progress < 1 ? '' : suffix);
+      }
+
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = prefix + target + suffix;
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  /* Trigger counters when stat strip scrolls into view */
+  var counters  = document.querySelectorAll('.stat__number[data-target]');
+  var triggered = false;
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting && !triggered) {
+        triggered = true;
+        counters.forEach(animateCounter);
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.5 });
+
+  if (counters.length) observer.observe(counters[0].closest('.card'));
+
+  /* ── Form validation & submission feedback ── */
+  var form = document.getElementById('sfgLeadForm');
+  var msg  = document.getElementById('sfgMsg');
+
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var name    = document.getElementById('sfgName').value.trim();
+      var email   = document.getElementById('sfgEmail').value.trim();
+      var phone   = document.getElementById('sfgPhone').value.trim();
+      var service = document.getElementById('sfgService').value;
+
+      if (!name || !email || !phone || !service) {
+        msg.style.color = '#f87171';
+        msg.textContent = 'Please fill in all fields before submitting.';
+        return;
+      }
+
+      var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!emailOk) {
+        msg.style.color = '#f87171';
+        msg.textContent = 'Please enter a valid email address.';
+        return;
+      }
+
+      /* ── Replace the line below with your actual form endpoint or GHL webhook ── */
+      /* fetch('YOUR_WEBHOOK_URL', { method:'POST', body: JSON.stringify({name,email,phone,service}) }); */
+
+      msg.style.color = '#f0a500';
+      msg.textContent = '✓ Request received! We\'ll be in touch shortly.';
+      form.reset();
+    });
+  }
+
+})();
+</script>
