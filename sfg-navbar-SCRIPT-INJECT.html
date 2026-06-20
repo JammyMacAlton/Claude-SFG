@@ -4,26 +4,20 @@
 
   ⭐ USE THIS ONE. ⭐
 
-  WHY A SCRIPT: GoHighLevel's Footer/Header Tracking Code boxes
-  STRIP raw HTML (<nav>, <div>, <ul>...) and keep only <script>
-  and <style>. So we build the whole navbar from inside a <script>
-  — nothing gets stripped, and GHL's columns can't trap it.
+  WHY: GoHighLevel's Footer/Header Tracking Code boxes STRIP
+  raw HTML (<nav>, <div>, <ul>...) and keep only <script> and
+  <style>. This version builds the whole navbar from inside a
+  <script>, so nothing gets stripped.
 
   WHERE THIS GOES:
   1. Page  →  Settings  →  Tracking Code
   2. Open the  "Footer Tracking"  tab
   3. Paste EVERYTHING below  →  Save  →  Publish
-
-  TO PUT IT ON EVERY PAGE:
-  Use  Sites → Menus (Custom Menus)  and assign to all
-  funnels/websites, OR paste this into each page's Footer Tracking.
+     (Check the PUBLISHED / PREVIEW page, not the editor canvas.)
 
   CLEAN UP FIRST:
-  - Empty the "Custom CSS" box from earlier attempts.
-  - Remove any previous navbar paste / canvas HTML element.
-
-  NOTE: The GHL editor canvas will NOT run this script — it only
-  runs on the PUBLISHED / PREVIEW page. Always check there.
+  - Empty the "Custom CSS" box from earlier.
+  - Remove any previous footer-code paste / canvas navbar element.
 =========================================================
 -->
 
@@ -35,31 +29,32 @@
   var css = ''
     + '#sfg-nb,#sfg-nb *{box-sizing:border-box;margin:0;padding:0;}'
     + '#sfg-nb{background:#fff;border-bottom:3px solid #ffd166;box-shadow:0 2px 12px rgba(7,48,75,.09);position:fixed;top:0;left:0;right:0;z-index:999999;width:100%;font-family:Georgia,"Times New Roman",serif;}'
-    + '#sfg-nb .sfg-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:78px;}'
-    + '#sfg-nb .sfg-logo{display:flex;align-items:center;text-decoration:none!important;flex-shrink:0;}'
-    + '#sfg-nb .sfg-logo img{height:56px;width:auto;display:block;}'
-    + '#sfg-nb .sfg-links{display:flex;align-items:center;list-style:none!important;gap:0;height:100%;margin:0!important;padding:0!important;}'
-    + '#sfg-nb .sfg-links li{height:100%;display:flex;align-items:center;list-style:none!important;margin:0!important;}'
-    + '#sfg-nb .sfg-links li a{display:flex!important;align-items:center;height:100%;text-decoration:none!important;color:#07304b!important;font-size:15px;font-weight:600;letter-spacing:.02em;padding:0 18px!important;white-space:nowrap;position:relative;transition:color .2s;}'
+    + '#sfg-nb .sfg-inner{max-width:1320px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:86px;}'
+    + '#sfg-nb .sfg-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0;margin-right:auto;}'
+    + '#sfg-nb .sfg-logo img{height:74px;width:auto;display:block;}'
+    + '#sfg-nb .sfg-links{display:flex;align-items:center;list-style:none;gap:0;height:100%;margin:0;}'
+    + '#sfg-nb .sfg-links li{height:100%;display:flex;align-items:center;list-style:none;}'
+    + '#sfg-nb .sfg-links li a{display:flex;align-items:center;height:100%;text-decoration:none;color:#07304b;font-size:15px;font-weight:600;letter-spacing:.02em;padding:0 18px;white-space:nowrap;position:relative;transition:color .2s;}'
     + '#sfg-nb .sfg-links li a::after{content:"";position:absolute;bottom:0;left:18px;right:18px;height:3px;background:#ffd166;transform:scaleX(0);transform-origin:center;transition:transform .25s ease;}'
-    + '#sfg-nb .sfg-links li a:hover{color:#c99a2e!important;}'
+    + '#sfg-nb .sfg-links li a:hover{color:#c99a2e;}'
     + '#sfg-nb .sfg-links li a:hover::after{transform:scaleX(1);}'
     + '#sfg-nb .sfg-div{width:1px;height:22px;background:#cdd9e0;margin:0 14px;flex-shrink:0;}'
-    + '#sfg-nb .sfg-cta a{background:#07304b!important;color:#ffd166!important;border-radius:3px;padding:11px 26px!important;font-size:14px;font-weight:700;letter-spacing:.05em;height:auto!important;margin-left:6px;transition:background .22s,color .22s;}'
+    + '#sfg-nb .sfg-cta a{background:#07304b!important;color:#ffd166!important;border-radius:4px;padding:12px 26px!important;font-size:14px;font-weight:700;letter-spacing:.04em;height:auto!important;margin-left:8px;transition:background .22s,color .22s;}'
     + '#sfg-nb .sfg-cta a::after{display:none;}'
     + '#sfg-nb .sfg-cta a:hover{background:#ffd166!important;color:#07304b!important;}'
     + '#sfg-nb .sfg-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;}'
     + '#sfg-nb .sfg-burger span{display:block;width:24px;height:2px;background:#07304b;border-radius:2px;transition:all .28s ease;}'
-    + '#sfg-nb-spacer{height:78px;width:100%;}'
+    + '#sfg-nb-spacer{height:86px;width:100%;}'
     + '@media(max-width:880px){'
-    +   '#sfg-nb .sfg-inner{padding:0 20px;height:62px;}'
-    +   '#sfg-nb-spacer{height:62px;}'
+    +   '#sfg-nb .sfg-inner{padding:0 18px;height:66px;}'
+    +   '#sfg-nb-spacer{height:66px;}'
+    +   '#sfg-nb .sfg-logo img{height:50px;}'
     +   '#sfg-nb .sfg-burger{display:flex;}'
     +   '#sfg-nb .sfg-links{position:absolute;top:100%;left:0;right:0;background:#fff;border-top:3px solid #ffd166;flex-direction:column;align-items:stretch;height:auto;gap:0;max-height:0;overflow:hidden;transition:max-height .35s ease,box-shadow .35s ease;}'
     +   '#sfg-nb .sfg-links.open{max-height:500px;box-shadow:0 10px 28px rgba(7,48,75,.12);}'
     +   '#sfg-nb .sfg-links li{height:auto;border-bottom:1px solid #edf1f4;}'
     +   '#sfg-nb .sfg-div{display:none;}'
-    +   '#sfg-nb .sfg-links li a{padding:15px 26px!important;font-size:15px;height:auto;}'
+    +   '#sfg-nb .sfg-links li a{padding:15px 26px;font-size:15px;height:auto;}'
     +   '#sfg-nb .sfg-links li a::after{display:none;}'
     +   '#sfg-nb .sfg-cta{padding:14px 18px;border-bottom:none;}'
     +   '#sfg-nb .sfg-cta a{display:block!important;text-align:center;margin-left:0;padding:13px!important;width:100%;}'
@@ -67,7 +62,7 @@
     +   '#sfg-nb .sfg-burger.open span:nth-child(2){opacity:0;}'
     +   '#sfg-nb .sfg-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}'
     + '}'
-    + '@media(max-width:480px){#sfg-nb .sfg-logo img{height:42px;}}';
+    + '@media(max-width:480px){#sfg-nb .sfg-logo img{height:44px;}}';
 
   var html = ''
     + '<div class="sfg-inner">'
@@ -81,7 +76,7 @@
     +     '<li><a href="https://sfgtaxservice.com/services">Services</a></li>'
     +     '<li><a href="https://www.irs.gov/wheres-my-refund" target="_blank" rel="noopener">Track My Refund</a></li>'
     +     '<li class="sfg-div" aria-hidden="true"></li>'
-    +     '<li class="sfg-cta"><a href="https://sfgtaxservice.com/new-client">New Client</a></li>'
+    +     '<li class="sfg-cta"><a href="https://sfgtaxservice.com/new-client">Become a Client</a></li>'
     +   '</ul>'
     + '</div>';
 
@@ -125,19 +120,10 @@
     }
   }
 
-  /* Run as soon as <body> exists, with several fallbacks so timing
-     or where GHL injects the code (head vs footer) can't stop it. */
-  function tryBuild() {
-    if (document.body) { build(); return true; }
-    return false;
-  }
-  if (!tryBuild()) {
-    document.addEventListener('DOMContentLoaded', tryBuild);
-    window.addEventListener('load', tryBuild);
-    var tries = 0;
-    var t = setInterval(function () {
-      if (tryBuild() || ++tries > 40) clearInterval(t);  /* ~10s max */
-    }, 250);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', build);
+  } else {
+    build();
   }
 })();
 </script>
