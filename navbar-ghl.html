@@ -1,0 +1,102 @@
+<!--
+=======================================================
+  SFG NAVBAR — GoHighLevel Version
+
+  HOW TO ADD THIS IN GoHighLevel:
+
+  1. Open your Funnel or Website in GHL editor
+  2. Click the PAGE you want to add it to
+  3. Click "Settings" (gear icon) on that page
+  4. Find "Custom Code" → "Header" section
+  5. Paste ONLY the <style> block below into the Header
+  6. Find "Custom Code" → "Body (Start)" section
+  7. Paste the <nav> block + <script> into Body Start
+
+  OR — if you want it as a draggable element:
+  1. Drag an "HTML" element to the top of your page
+  2. Paste THIS ENTIRE FILE into that element
+=======================================================
+-->
+
+<style>
+.sfg-nb{background:#fff;border-bottom:3px solid #ffd166;box-shadow:0 2px 12px rgba(7,48,75,.09);position:sticky;top:0;z-index:9999;width:100%;font-family:Georgia,'Times New Roman',serif;}
+.sfg-nb-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 36px;height:74px;}
+.sfg-nb-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0;}
+.sfg-nb-logo img{height:56px;width:auto;display:block;}
+.sfg-nb-links{display:flex;align-items:center;list-style:none;gap:0;height:100%;margin:0;padding:0;}
+.sfg-nb-links li{height:100%;display:flex;align-items:center;}
+.sfg-nb-links li a{display:flex;align-items:center;height:100%;text-decoration:none;color:#07304b;font-size:14.5px;letter-spacing:.025em;padding:0 15px;white-space:nowrap;position:relative;transition:color .2s;}
+.sfg-nb-links li a::after{content:'';position:absolute;bottom:0;left:15px;right:15px;height:3px;background:#ffd166;transform:scaleX(0);transform-origin:center;transition:transform .25s ease;}
+.sfg-nb-links li a:hover{color:#c99a2e;}
+.sfg-nb-links li a:hover::after{transform:scaleX(1);}
+.sfg-nb-div{width:1px;height:20px;background:#cdd9e0;margin:0 8px;flex-shrink:0;}
+.sfg-nb-links li.sfg-cta-btn a{background:#07304b;color:#ffd166;border-radius:3px;padding:10px 22px;font-size:13.5px;font-weight:700;letter-spacing:.05em;height:auto;margin-left:6px;transition:background .22s,color .22s;}
+.sfg-nb-links li.sfg-cta-btn a::after{display:none;}
+.sfg-nb-links li.sfg-cta-btn a:hover{background:#ffd166;color:#07304b;}
+.sfg-nb-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px;}
+.sfg-nb-burger span{display:block;width:24px;height:2px;background:#07304b;border-radius:2px;transition:all .28s ease;}
+.sfg-nb-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.sfg-nb-burger.open span:nth-child(2){opacity:0;}
+.sfg-nb-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+@media(max-width:880px){
+  .sfg-nb-inner{padding:0 20px;height:62px;}
+  .sfg-nb-burger{display:flex;}
+  .sfg-nb-links{position:absolute;top:100%;left:0;right:0;background:#fff;border-top:3px solid #ffd166;flex-direction:column;align-items:stretch;height:auto;gap:0;max-height:0;overflow:hidden;transition:max-height .35s ease,box-shadow .35s ease;}
+  .sfg-nb-links.open{max-height:500px;box-shadow:0 10px 28px rgba(7,48,75,.12);}
+  .sfg-nb-links li{height:auto;border-bottom:1px solid #edf1f4;}
+  .sfg-nb-div{display:none;}
+  .sfg-nb-links li a{padding:15px 26px;font-size:15px;height:auto;}
+  .sfg-nb-links li a::after{display:none;}
+  .sfg-nb-links li.sfg-cta-btn{padding:14px 18px;border-bottom:none;}
+  .sfg-nb-links li.sfg-cta-btn a{display:block;text-align:center;margin-left:0;padding:13px;width:100%;}
+}
+@media(max-width:480px){
+  .sfg-nb-logo img{height:44px;}
+}
+</style>
+
+<nav class="sfg-nb" role="navigation" aria-label="Main Navigation">
+  <div class="sfg-nb-inner">
+
+    <a href="https://sfgtaxservice.com/home-5735" class="sfg-nb-logo" aria-label="Solution Financial Group Home">
+      <img
+        src="https://assets.cdn.filesafe.space/frh1FySyXd0r7cSut9EW/media/6a36fa546a6dd1b69a5c5745.png"
+        alt="Solution Financial Group"
+      />
+    </a>
+
+    <button class="sfg-nb-burger" id="sfgBurger" aria-expanded="false" aria-controls="sfgLinks" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="sfg-nb-links" id="sfgLinks">
+      <li><a href="https://sfgtaxservice.com/home-5735">Home</a></li>
+      <li><a href="https://sfgtaxservice.com/about-us">About Us</a></li>
+      <li><a href="https://sfgtaxservice.com/services">Services</a></li>
+      <li><a href="https://www.irs.gov/wheres-my-refund" target="_blank" rel="noopener">Track My Refund</a></li>
+      <li class="sfg-nb-div" aria-hidden="true"></li>
+      <li class="sfg-cta-btn"><a href="https://sfgtaxservice.com/new-client">New Client</a></li>
+    </ul>
+
+  </div>
+</nav>
+
+<script>
+(function(){
+  var b=document.getElementById('sfgBurger');
+  var n=document.getElementById('sfgLinks');
+  if(!b||!n)return;
+  b.addEventListener('click',function(){
+    var o=n.classList.toggle('open');
+    b.classList.toggle('open',o);
+    b.setAttribute('aria-expanded',o);
+  });
+  n.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){
+      n.classList.remove('open');
+      b.classList.remove('open');
+      b.setAttribute('aria-expanded','false');
+    });
+  });
+})();
+</script>
