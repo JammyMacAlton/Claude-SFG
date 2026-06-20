@@ -1,75 +1,94 @@
-/* ===== SFG Contact Form Styling ===== */
+/* ===== SFG Contact Form — Modern Card Design ===== */
 
-/* Card around the whole form */
+/* Card */
 #form-Jo5U6AJsYV,
 .ContactForm {
   background: #ffffff;
-  border: 1px solid #e6edf2;
-  border-top: 4px solid #ffd166;
-  border-radius: 8px;
-  box-shadow: 0 8px 28px rgba(7, 48, 75, 0.10);
-  padding: 32px;
+  border: 1px solid #eef2f5;
+  border-radius: 16px;
+  box-shadow: 0 18px 50px rgba(7, 48, 75, 0.10);
+  padding: 44px 40px;
 }
 
 /* Labels */
 #form-Jo5U6AJsYV label,
 .ContactForm label {
-  color: #07304b;
-  font-weight: 600;
+  color: #1f2d3a;
+  font-weight: 700;
   font-size: 14px;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
+  margin-bottom: 6px;
 }
 
-/* Input fields + textareas */
+/* Inputs, selects, textareas */
 #form-Jo5U6AJsYV input,
-#form-Jo5U6AJsYV textarea,
 #form-Jo5U6AJsYV select,
+#form-Jo5U6AJsYV textarea,
 .ContactForm input,
-.ContactForm textarea,
-.ContactForm select {
-  background: #f8fafb;
-  border: 1px solid #cdd9e0 !important;
-  border-radius: 5px !important;
+.ContactForm select,
+.ContactForm textarea {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 10px !important;
   color: #07304b !important;
-  padding: 12px 14px !important;
+  font-size: 15px !important;
+  padding: 14px 16px !important;
+  box-shadow: 0 1px 2px rgba(7, 48, 75, 0.04);
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-/* Focused field */
+/* Textarea taller */
+#form-Jo5U6AJsYV textarea,
+.ContactForm textarea {
+  min-height: 150px !important;
+  resize: vertical;
+}
+
+/* Focus state — brand gold ring */
 #form-Jo5U6AJsYV input:focus,
-#form-Jo5U6AJsYV textarea:focus,
 #form-Jo5U6AJsYV select:focus,
+#form-Jo5U6AJsYV textarea:focus,
 .ContactForm input:focus,
-.ContactForm textarea:focus,
-.ContactForm select:focus {
+.ContactForm select:focus,
+.ContactForm textarea:focus {
   border-color: #ffd166 !important;
-  box-shadow: 0 0 0 3px rgba(255, 209, 102, 0.30) !important;
+  box-shadow: 0 0 0 4px rgba(255, 209, 102, 0.28) !important;
   outline: none !important;
 }
 
-/* Placeholder text */
+/* Placeholder */
 #form-Jo5U6AJsYV ::placeholder,
 .ContactForm ::placeholder {
-  color: #8ba0ad;
+  color: #9aa7b2;
 }
 
-/* Submit button */
+/* Full-width gradient submit button */
 #form-Jo5U6AJsYV button,
-#form-Jo5U6AJsYV .submit-btn,
 .ContactForm button {
-  background: #07304b !important;
-  color: #ffd166 !important;
+  width: 100% !important;
+  background: linear-gradient(135deg, #ffd166 0%, #e6b84a 100%) !important;
+  color: #07304b !important;
   border: none !important;
-  border-radius: 5px !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.04em;
-  padding: 13px 28px !important;
-  transition: background 0.22s, color 0.22s;
+  border-radius: 12px !important;
+  font-weight: 800 !important;
+  font-size: 16px !important;
+  letter-spacing: 0.02em;
+  padding: 18px 28px !important;
+  margin-top: 8px;
+  box-shadow: 0 12px 26px rgba(255, 209, 102, 0.40);
+  transition: transform 0.22s, box-shadow 0.22s, filter 0.22s;
+}
+
+/* arrow after button text */
+#form-Jo5U6AJsYV button::after,
+.ContactForm button::after {
+  content: " \2192";
+  font-weight: 700;
 }
 
 #form-Jo5U6AJsYV button:hover,
-#form-Jo5U6AJsYV .submit-btn:hover,
 .ContactForm button:hover {
-  background: #ffd166 !important;
-  color: #07304b !important;
+  transform: translateY(-2px);
+  box-shadow: 0 18px 34px rgba(255, 209, 102, 0.55);
+  filter: brightness(1.03);
 }
