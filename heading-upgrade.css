@@ -1,0 +1,35 @@
+/* ===== SFG — Premium Heading Treatment ===== */
+#heading-N1cllTPevt,
+.ContactFormHeading {
+  position: relative;
+  font-size: 42px !important;
+  line-height: 1.15 !important;
+  font-weight: 800 !important;
+  color: #07304b !important;          /* base = navy */
+  padding-top: 28px;
+}
+
+/* decorative gold spark/divider above the heading */
+#heading-N1cllTPevt::before,
+.ContactFormHeading::before {
+  content: "\2726   \2014\2014\2014   \2726";   /* ✦ ——— ✦ */
+  display: block;
+  color: #ffd166;
+  font-size: 16px;
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+}
+
+/* the accent line — wrap those words in a <span> (see note),
+   they'll render gold + italic serif */
+#heading-N1cllTPevt span,
+.ContactFormHeading span {
+  color: #ffd166 !important;
+  font-style: italic;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+@media (max-width: 600px) {
+  #heading-N1cllTPevt,
+  .ContactFormHeading { font-size: 30px !important; }
+}
