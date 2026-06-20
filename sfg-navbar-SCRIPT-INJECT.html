@@ -4,20 +4,26 @@
 
   ⭐ USE THIS ONE. ⭐
 
-  WHY: GoHighLevel's Footer/Header Tracking Code boxes STRIP
-  raw HTML (<nav>, <div>, <ul>...) and keep only <script> and
-  <style>. That's why "nothing showed". This version builds the
-  whole navbar from inside a <script>, so nothing gets stripped.
+  WHY A SCRIPT: GoHighLevel's Footer/Header Tracking Code boxes
+  STRIP raw HTML (<nav>, <div>, <ul>...) and keep only <script>
+  and <style>. So we build the whole navbar from inside a <script>
+  — nothing gets stripped, and GHL's columns can't trap it.
 
   WHERE THIS GOES:
   1. Page  →  Settings  →  Tracking Code
   2. Open the  "Footer Tracking"  tab
   3. Paste EVERYTHING below  →  Save  →  Publish
 
+  TO PUT IT ON EVERY PAGE:
+  Use  Sites → Menus (Custom Menus)  and assign to all
+  funnels/websites, OR paste this into each page's Footer Tracking.
+
   CLEAN UP FIRST:
-  - Empty the "Custom CSS" box from earlier.
-  - Remove the previous footer-code paste.
-  - Delete any navbar HTML element on the canvas.
+  - Empty the "Custom CSS" box from earlier attempts.
+  - Remove any previous navbar paste / canvas HTML element.
+
+  NOTE: The GHL editor canvas will NOT run this script — it only
+  runs on the PUBLISHED / PREVIEW page. Always check there.
 =========================================================
 -->
 
@@ -53,10 +59,10 @@
     +   '#sfg-nb .sfg-links.open{max-height:500px;box-shadow:0 10px 28px rgba(7,48,75,.12);}'
     +   '#sfg-nb .sfg-links li{height:auto;border-bottom:1px solid #edf1f4;}'
     +   '#sfg-nb .sfg-div{display:none;}'
-    +   '#sfg-nb .sfg-links li a{padding:15px 26px;font-size:15px;height:auto;}'
+    +   '#sfg-nb .sfg-links li a{padding:15px 26px!important;font-size:15px;height:auto;}'
     +   '#sfg-nb .sfg-links li a::after{display:none;}'
     +   '#sfg-nb .sfg-cta{padding:14px 18px;border-bottom:none;}'
-    +   '#sfg-nb .sfg-cta a{display:block;text-align:center;margin-left:0;padding:13px;width:100%;}'
+    +   '#sfg-nb .sfg-cta a{display:block!important;text-align:center;margin-left:0;padding:13px!important;width:100%;}'
     +   '#sfg-nb .sfg-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}'
     +   '#sfg-nb .sfg-burger.open span:nth-child(2){opacity:0;}'
     +   '#sfg-nb .sfg-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}'
