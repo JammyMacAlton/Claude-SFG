@@ -1,160 +1,131 @@
 <!--
   ================================================
-  SFG Navigation Bar — HTML + JS Block
+  SFG Navigation Bar — Single Copy/Paste Block
   Paste this entire block into your web builder's
-  "Custom Code / Embed" section.
+  Custom Code / HTML Embed section.
   ================================================
 -->
 
-<!-- ① Paste the <style> block once in your page <head> or custom CSS panel -->
 <style>
 /* ================================================
-   SFG Navigation Bar Stylesheet
-   Colors: #07304b (Navy Blue) | #ffd166 (Gold)
+   SFG Navigation Bar
+   Colors: #07304b (Navy) | #ffd166 (Gold)
    ================================================ */
-
-* { margin:0; padding:0; box-sizing:border-box; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --navy: #07304b;
-  --gold: #ffd166;
-  --gold-dark: #e6b84a;
-  --white: #ffffff;
-  --text-muted: #5a6a75;
-}
-
-.sfg-topbar {
-  background-color: var(--navy);
-  color: var(--gold);
-  text-align: center;
-  font-size: 13px;
-  font-family: 'Georgia', serif;
-  letter-spacing: 0.08em;
-  padding: 7px 20px;
-  font-style: italic;
+  --navy:      #07304b;
+  --gold:      #ffd166;
+  --gold-dark: #c99a2e;
+  --white:     #ffffff;
 }
 
 .sfg-navbar {
   background-color: var(--white);
-  border-bottom: 3px solid var(--gold);
-  box-shadow: 0 2px 16px rgba(7,48,75,0.10);
+  border-bottom: 2px solid var(--gold);
+  box-shadow: 0 1px 8px rgba(7,48,75,0.08);
   position: sticky;
   top: 0;
-  z-index: 1000;
-  font-family: 'Georgia', 'Times New Roman', serif;
+  z-index: 999;
+  width: 100%;
 }
 
 .sfg-navbar-inner {
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 30px;
+  padding: 0 40px;
+  height: 72px;
 }
 
-.sfg-logo-wrap {
+/* Logo */
+.sfg-logo {
   display: flex;
   align-items: center;
   text-decoration: none;
-  gap: 14px;
+  flex-shrink: 0;
 }
 
-.sfg-logo-wrap img {
-  height: 62px;
+.sfg-logo img {
+  height: 52px;
   width: auto;
   display: block;
 }
 
-.sfg-logo-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.15;
-}
-
-.sfg-logo-text .sfg-name {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--navy);
-  letter-spacing: 0.03em;
-}
-
-.sfg-logo-text .sfg-tagline {
-  font-size: 11px;
-  color: var(--gold-dark);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-style: italic;
-}
-
-.sfg-nav-links {
-  list-style: none;
+/* Nav links */
+.sfg-nav {
   display: flex;
   align-items: center;
-  gap: 6px;
+  list-style: none;
+  gap: 2px;
+  height: 100%;
 }
 
-.sfg-nav-links li a {
-  display: inline-block;
+.sfg-nav li {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.sfg-nav li a {
+  display: flex;
+  align-items: center;
+  height: 100%;
   text-decoration: none;
   color: var(--navy);
+  font-family: 'Georgia', 'Times New Roman', serif;
   font-size: 14.5px;
-  font-family: 'Georgia', serif;
-  letter-spacing: 0.04em;
-  padding: 8px 14px;
-  border-radius: 3px;
+  letter-spacing: 0.02em;
+  padding: 0 16px;
+  white-space: nowrap;
   position: relative;
-  transition: color 0.25s ease, background-color 0.25s ease;
+  transition: color 0.2s ease;
 }
 
-.sfg-nav-links li a::after {
+.sfg-nav li a::after {
   content: '';
   position: absolute;
-  bottom: 4px;
-  left: 14px;
-  right: 14px;
+  bottom: 0;
+  left: 16px;
+  right: 16px;
   height: 2px;
   background-color: var(--gold);
   transform: scaleX(0);
   transform-origin: center;
-  transition: transform 0.28s ease;
+  transition: transform 0.25s ease;
 }
 
-.sfg-nav-links li a:hover { background-color: rgba(255,209,102,0.10); }
-.sfg-nav-links li a:hover::after { transform: scaleX(1); }
+.sfg-nav li a:hover { color: var(--gold-dark); }
+.sfg-nav li a:hover::after { transform: scaleX(1); }
 
-.sfg-nav-links li.sfg-refund a {
-  color: var(--text-muted);
-  font-size: 13.5px;
-  border: 1px solid transparent;
+/* Divider */
+.sfg-nav li.sfg-divider {
+  width: 1px;
+  height: 22px;
+  background-color: #d0dce4;
+  margin: 0 10px;
+  flex-shrink: 0;
 }
 
-.sfg-nav-links li.sfg-refund a:hover {
-  color: var(--navy);
-  border-color: var(--gold);
-  background-color: rgba(255,209,102,0.08);
-}
-
-.sfg-nav-links li.sfg-cta a {
+/* New Client CTA */
+.sfg-nav li.sfg-cta a {
   background-color: var(--navy);
   color: var(--gold);
-  border: 2px solid var(--navy);
-  padding: 9px 20px;
-  border-radius: 4px;
-  font-size: 14px;
+  border-radius: 3px;
+  padding: 10px 20px;
+  font-size: 13.5px;
   font-weight: 700;
-  letter-spacing: 0.06em;
-  transition: background-color 0.25s, color 0.25s, border-color 0.25s;
+  letter-spacing: 0.05em;
+  height: auto;
+  margin-left: 8px;
+  transition: background-color 0.22s, color 0.22s;
 }
+.sfg-nav li.sfg-cta a::after { display: none; }
+.sfg-nav li.sfg-cta a:hover { background-color: var(--gold); color: var(--navy); }
 
-.sfg-nav-links li.sfg-cta a::after { display: none; }
-
-.sfg-nav-links li.sfg-cta a:hover {
-  background-color: var(--gold);
-  color: var(--navy);
-  border-color: var(--gold);
-}
-
+/* Hamburger */
 .sfg-hamburger {
   display: none;
   flex-direction: column;
@@ -162,128 +133,102 @@
   cursor: pointer;
   background: none;
   border: none;
-  padding: 6px;
+  padding: 8px;
 }
-
 .sfg-hamburger span {
   display: block;
-  width: 26px;
+  width: 24px;
   height: 2px;
   background-color: var(--navy);
   border-radius: 2px;
-  transition: all 0.3s ease;
+  transition: all 0.28s ease;
 }
-
 .sfg-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.sfg-hamburger.open span:nth-child(2) { opacity: 0; }
+.sfg-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
 .sfg-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-@media (max-width: 860px) {
+/* Mobile */
+@media (max-width: 900px) {
+  .sfg-navbar-inner { padding: 0 24px; height: 64px; }
   .sfg-hamburger { display: flex; }
 
-  .sfg-nav-links {
+  .sfg-nav {
     position: absolute;
     top: 100%;
-    left: 0;
-    right: 0;
+    left: 0; right: 0;
     background-color: var(--white);
-    border-top: 3px solid var(--gold);
+    border-top: 2px solid var(--gold);
+    border-bottom: 1px solid #e5eef3;
     flex-direction: column;
     align-items: stretch;
+    height: auto;
     gap: 0;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.35s ease, box-shadow 0.35s ease;
-    box-shadow: none;
   }
 
-  .sfg-nav-links.open {
-    max-height: 420px;
-    box-shadow: 0 8px 20px rgba(7,48,75,0.12);
+  .sfg-nav.open {
+    max-height: 480px;
+    box-shadow: 0 8px 24px rgba(7,48,75,0.10);
   }
 
-  .sfg-nav-links li a {
-    display: block;
-    padding: 14px 30px;
-    border-bottom: 1px solid rgba(7,48,75,0.07);
-    border-radius: 0;
+  .sfg-nav li { height: auto; border-bottom: 1px solid #eef2f5; }
+  .sfg-nav li.sfg-divider { display: none; }
+
+  .sfg-nav li a {
+    padding: 15px 28px;
     font-size: 15px;
+    height: auto;
   }
+  .sfg-nav li a::after { display: none; }
 
-  .sfg-nav-links li a::after { display: none; }
-
-  .sfg-nav-links li.sfg-cta {
-    padding: 14px 20px;
-  }
-
-  .sfg-nav-links li.sfg-cta a {
-    text-align: center;
-    border-radius: 4px;
-    margin: 0 10px;
-    padding: 12px 20px;
-  }
+  .sfg-nav li.sfg-cta { padding: 14px 20px; border-bottom: none; }
+  .sfg-nav li.sfg-cta a { display: block; text-align: center; margin-left: 0; padding: 13px 20px; width: 100%; }
 }
 
 @media (max-width: 480px) {
-  .sfg-navbar-inner { padding: 10px 16px; }
-  .sfg-logo-wrap img { height: 50px; }
-  .sfg-logo-text .sfg-name { font-size: 16px; }
-  .sfg-topbar { font-size: 11px; }
+  .sfg-navbar-inner { padding: 0 16px; height: 58px; }
+  .sfg-logo img { height: 42px; }
 }
 </style>
 
-<!-- ② Paste this HTML where you want the navbar to appear -->
-
-<!-- Top Accent Bar -->
-<div class="sfg-topbar">
-  Trusted Tax &amp; Financial Services &nbsp;|&nbsp; Serving Clients Nationwide
-</div>
-
-<!-- Main Navigation -->
+<!-- NAVBAR HTML -->
 <nav class="sfg-navbar" role="navigation" aria-label="Main Navigation">
   <div class="sfg-navbar-inner">
 
     <!-- Logo -->
-    <a href="https://sfgtaxservice.com/home-5735" class="sfg-logo-wrap" aria-label="Solution Financial Group Home">
-      <!--
-        Replace the src below with your actual uploaded logo URL.
-        If your builder hosts images, upload the SFG logo and paste
-        the URL here. Otherwise the text fallback below will show.
-      -->
+    <a href="https://sfgtaxservice.com/home-5735" class="sfg-logo" aria-label="Solution Financial Group — Home">
       <img
-        src="https://sfgtaxservice.com/wp-content/uploads/SFG-logo.png"
-        alt="Solution Financial Group Logo"
-        onerror="this.style.display='none'"
+        src="https://assets.cdn.filesafe.space/frh1FySyXd0r7cSut9EW/media/6a36fa546a6dd1b69a5c5745.png"
+        alt="Solution Financial Group"
       />
-      <div class="sfg-logo-text">
-        <span class="sfg-name">Solution Financial Group</span>
-        <span class="sfg-tagline">Tax &amp; Financial Services</span>
-      </div>
     </a>
 
-    <!-- Hamburger (mobile) -->
+    <!-- Mobile hamburger -->
     <button
       class="sfg-hamburger"
       id="sfgHamburger"
       aria-expanded="false"
-      aria-controls="sfgNavLinks"
-      aria-label="Toggle navigation menu"
+      aria-controls="sfgNav"
+      aria-label="Toggle menu"
     >
       <span></span>
       <span></span>
       <span></span>
     </button>
 
-    <!-- Nav Links -->
-    <ul class="sfg-nav-links" id="sfgNavLinks" role="list">
+    <!-- Navigation links -->
+    <ul class="sfg-nav" id="sfgNav" role="list">
       <li><a href="https://sfgtaxservice.com/home-5735">Home</a></li>
       <li><a href="https://sfgtaxservice.com/about-us">About Us</a></li>
       <li><a href="https://sfgtaxservice.com/services">Services</a></li>
-      <li class="sfg-refund">
+      <li>
         <a href="https://www.irs.gov/wheres-my-refund" target="_blank" rel="noopener noreferrer">
-          Track My Refund ↗
+          Track My Refund
         </a>
       </li>
+      <li class="sfg-divider" aria-hidden="true"></li>
       <li class="sfg-cta">
         <a href="https://sfgtaxservice.com/new-client">New Client</a>
       </li>
@@ -292,27 +237,24 @@
   </div>
 </nav>
 
-<!-- ③ JavaScript — mobile menu toggle -->
 <script>
-  (function () {
-    var hamburger = document.getElementById('sfgHamburger');
-    var navLinks  = document.getElementById('sfgNavLinks');
+(function () {
+  var btn = document.getElementById('sfgHamburger');
+  var nav = document.getElementById('sfgNav');
+  if (!btn || !nav) return;
 
-    if (!hamburger || !navLinks) return;
+  btn.addEventListener('click', function () {
+    var open = nav.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+  });
 
-    hamburger.addEventListener('click', function () {
-      var isOpen = navLinks.classList.toggle('open');
-      hamburger.classList.toggle('open', isOpen);
-      hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  nav.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      nav.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
     });
-
-    // Close drawer when a link is clicked (single-page or anchor navigation)
-    navLinks.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () {
-        navLinks.classList.remove('open');
-        hamburger.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
-      });
-    });
-  })();
+  });
+})();
 </script>
