@@ -1,0 +1,268 @@
+/* ================================================
+   SFG Navigation Bar Stylesheet
+   Colors: #07304b (Navy Blue) | #ffd166 (Gold)
+   Background: White
+   ================================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --navy: #07304b;
+  --gold: #ffd166;
+  --gold-dark: #e6b84a;
+  --white: #ffffff;
+  --light-gray: #f8f9fa;
+  --text-muted: #5a6a75;
+}
+
+/* ── Top Accent Bar ── */
+.sfg-topbar {
+  background-color: var(--navy);
+  color: var(--gold);
+  text-align: center;
+  font-size: 13px;
+  font-family: 'Georgia', serif;
+  letter-spacing: 0.08em;
+  padding: 7px 20px;
+  font-style: italic;
+}
+
+/* ── Main Nav Wrapper ── */
+.sfg-navbar {
+  background-color: var(--white);
+  border-bottom: 3px solid var(--gold);
+  box-shadow: 0 2px 16px rgba(7, 48, 75, 0.10);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+.sfg-navbar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 30px;
+}
+
+/* ── Logo Area ── */
+.sfg-logo-wrap {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  gap: 14px;
+}
+
+.sfg-logo-wrap img {
+  height: 62px;
+  width: auto;
+  display: block;
+}
+
+.sfg-logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.sfg-logo-text .sfg-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 0.03em;
+}
+
+.sfg-logo-text .sfg-tagline {
+  font-size: 11px;
+  color: var(--gold-dark);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-style: italic;
+}
+
+/* ── Nav Links ── */
+.sfg-nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sfg-nav-links li a {
+  display: inline-block;
+  text-decoration: none;
+  color: var(--navy);
+  font-size: 14.5px;
+  font-family: 'Georgia', serif;
+  letter-spacing: 0.04em;
+  padding: 8px 14px;
+  border-radius: 3px;
+  position: relative;
+  transition: color 0.25s ease, background-color 0.25s ease;
+}
+
+/* Underline hover effect */
+.sfg-nav-links li a::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 14px;
+  right: 14px;
+  height: 2px;
+  background-color: var(--gold);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.28s ease;
+}
+
+.sfg-nav-links li a:hover {
+  color: var(--navy);
+  background-color: rgba(255, 209, 102, 0.10);
+}
+
+.sfg-nav-links li a:hover::after {
+  transform: scaleX(1);
+}
+
+/* ── CTA Button — New Client ── */
+.sfg-nav-links li.sfg-cta a {
+  background-color: var(--navy);
+  color: var(--gold);
+  border: 2px solid var(--navy);
+  padding: 9px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.sfg-nav-links li.sfg-cta a::after {
+  display: none;
+}
+
+.sfg-nav-links li.sfg-cta a:hover {
+  background-color: var(--gold);
+  color: var(--navy);
+  border-color: var(--gold);
+}
+
+/* ── Track My Refund Link ── */
+.sfg-nav-links li.sfg-refund a {
+  color: var(--text-muted);
+  font-size: 13.5px;
+  border: 1px solid transparent;
+  transition: color 0.25s, border-color 0.25s;
+}
+
+.sfg-nav-links li.sfg-refund a:hover {
+  color: var(--navy);
+  border-color: var(--gold);
+  background-color: rgba(255, 209, 102, 0.08);
+}
+
+/* ── Mobile Hamburger ── */
+.sfg-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 6px;
+}
+
+.sfg-hamburger span {
+  display: block;
+  width: 26px;
+  height: 2px;
+  background-color: var(--navy);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Hamburger → X animation */
+.sfg-hamburger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.sfg-hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+.sfg-hamburger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ── Mobile Drawer ── */
+@media (max-width: 860px) {
+  .sfg-hamburger {
+    display: flex;
+  }
+
+  .sfg-nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--white);
+    border-top: 3px solid var(--gold);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, box-shadow 0.35s ease;
+    box-shadow: none;
+  }
+
+  .sfg-nav-links.open {
+    max-height: 420px;
+    box-shadow: 0 8px 20px rgba(7, 48, 75, 0.12);
+  }
+
+  .sfg-nav-links li a {
+    display: block;
+    padding: 14px 30px;
+    border-bottom: 1px solid rgba(7, 48, 75, 0.07);
+    border-radius: 0;
+    font-size: 15px;
+  }
+
+  .sfg-nav-links li a::after {
+    display: none;
+  }
+
+  .sfg-nav-links li.sfg-cta {
+    padding: 14px 20px;
+  }
+
+  .sfg-nav-links li.sfg-cta a {
+    text-align: center;
+    border-radius: 4px;
+    margin: 0 10px;
+    padding: 12px 20px;
+  }
+
+  .sfg-topbar {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sfg-navbar-inner {
+    padding: 10px 16px;
+  }
+
+  .sfg-logo-wrap img {
+    height: 50px;
+  }
+
+  .sfg-logo-text .sfg-name {
+    font-size: 16px;
+  }
+}
