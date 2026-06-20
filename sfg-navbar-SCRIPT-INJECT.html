@@ -125,10 +125,19 @@
     }
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', build);
-  } else {
-    build();
+  /* Run as soon as <body> exists, with several fallbacks so timing
+     or where GHL injects the code (head vs footer) can't stop it. */
+  function tryBuild() {
+    if (document.body) { build(); return true; }
+    return false;
+  }
+  if (!tryBuild()) {
+    document.addEventListener('DOMContentLoaded', tryBuild);
+    window.addEventListener('load', tryBuild);
+    var tries = 0;
+    var t = setInterval(function () {
+      if (tryBuild() || ++tries > 40) clearInterval(t);  /* ~10s max */
+    }, 250);
   }
 })();
 </script>
