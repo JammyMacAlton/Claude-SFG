@@ -1,0 +1,28 @@
+/* ===== SFG — Premium Gradient CTA Button ("Join Now") ===== */
+#form-Jo5U6AJsYV button,
+.ContactForm button {
+  background: linear-gradient(135deg, #ffd166 0%, #e6b84a 100%) !important;
+  color: #07304b !important;
+  border: none !important;
+  border-radius: 40px !important;          /* pill shape */
+  font-weight: 800 !important;
+  letter-spacing: 0.03em;
+  padding: 16px 40px !important;
+  box-shadow: 0 10px 24px rgba(255, 209, 102, 0.40);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;
+}
+
+/* arrow after the text */
+#form-Jo5U6AJsYV button::after,
+.ContactForm button::after {
+  content: " \2192";                        /* → */
+  font-weight: 700;
+}
+
+/* hover: lift + glow */
+#form-Jo5U6AJsYV button:hover,
+.ContactForm button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px rgba(255, 209, 102, 0.55);
+  filter: brightness(1.03);
+}
