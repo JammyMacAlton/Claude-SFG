@@ -1,0 +1,155 @@
+/* =========================================================
+   SFG NAVBAR — CSS ONLY  (no <style> tags, no JavaScript)
+
+   WHERE THIS GOES IN GoHighLevel:
+   Funnel/Website  →  open the page  →  Settings (top right)
+   →  "Custom CSS"  box  →  paste EVERYTHING below  →  Save
+
+   (Do NOT include <style> tags — GHL's Custom CSS box wants
+    raw CSS only.)
+   ========================================================= */
+
+#sfg-nb * { box-sizing: border-box; margin: 0; padding: 0; }
+
+#sfg-nb {
+  background: #ffffff;
+  border-bottom: 3px solid #ffd166;
+  box-shadow: 0 2px 12px rgba(7,48,75,.09);
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  width: 100%;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+#sfg-nb .sfg-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 36px;
+  height: 74px;
+}
+
+/* Logo */
+#sfg-nb .sfg-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+#sfg-nb .sfg-logo img { height: 56px; width: auto; display: block; }
+
+/* Links row */
+#sfg-nb .sfg-links {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 0;
+  height: 100%;
+  margin: 0;
+}
+#sfg-nb .sfg-links li { height: 100%; display: flex; align-items: center; list-style: none; }
+
+#sfg-nb .sfg-links li a {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  text-decoration: none;
+  color: #07304b;
+  font-size: 14.5px;
+  letter-spacing: .025em;
+  padding: 0 15px;
+  white-space: nowrap;
+  position: relative;
+  transition: color .2s;
+}
+
+/* gold underline on hover */
+#sfg-nb .sfg-links li a::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 15px; right: 15px;
+  height: 3px;
+  background: #ffd166;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform .25s ease;
+}
+#sfg-nb .sfg-links li a:hover { color: #c99a2e; }
+#sfg-nb .sfg-links li a:hover::after { transform: scaleX(1); }
+
+/* divider */
+#sfg-nb .sfg-div { width: 1px; height: 20px; background: #cdd9e0; margin: 0 8px; flex-shrink: 0; }
+
+/* New Client button */
+#sfg-nb .sfg-cta a {
+  background: #07304b;
+  color: #ffd166;
+  border-radius: 3px;
+  padding: 10px 22px;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  height: auto;
+  margin-left: 6px;
+  transition: background .22s, color .22s;
+}
+#sfg-nb .sfg-cta a::after { display: none; }
+#sfg-nb .sfg-cta a:hover { background: #ffd166; color: #07304b; }
+
+/* hide the mobile checkbox + burger by default */
+#sfg-nb .sfg-toggle { display: none; }
+#sfg-nb .sfg-burger { display: none; }
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 880px) {
+  #sfg-nb .sfg-inner { padding: 0 20px; height: 62px; }
+
+  /* burger button */
+  #sfg-nb .sfg-burger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+  }
+  #sfg-nb .sfg-burger span {
+    display: block;
+    width: 24px; height: 2px;
+    background: #07304b;
+    border-radius: 2px;
+    transition: all .28s ease;
+  }
+
+  /* collapsed menu */
+  #sfg-nb .sfg-links {
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    background: #fff;
+    border-top: 3px solid #ffd166;
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+    gap: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .35s ease, box-shadow .35s ease;
+  }
+  #sfg-nb .sfg-links li { height: auto; border-bottom: 1px solid #edf1f4; }
+  #sfg-nb .sfg-div { display: none; }
+  #sfg-nb .sfg-links li a { padding: 15px 26px; font-size: 15px; height: auto; }
+  #sfg-nb .sfg-links li a::after { display: none; }
+  #sfg-nb .sfg-cta { padding: 14px 18px; border-bottom: none; }
+  #sfg-nb .sfg-cta a { display: block; text-align: center; margin-left: 0; padding: 13px; width: 100%; }
+
+  /* checkbox-hack: open menu when toggled */
+  #sfg-nb .sfg-toggle:checked ~ .sfg-links {
+    max-height: 500px;
+    box-shadow: 0 10px 28px rgba(7,48,75,.12);
+  }
+  /* burger -> X */
+  #sfg-nb .sfg-toggle:checked ~ .sfg-burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  #sfg-nb .sfg-toggle:checked ~ .sfg-burger span:nth-child(2) { opacity: 0; }
+  #sfg-nb .sfg-toggle:checked ~ .sfg-burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+}
+
+@media (max-width: 480px) {
+  #sfg-nb .sfg-logo img { height: 44px; }
+}
