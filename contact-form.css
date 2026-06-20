@@ -1,0 +1,75 @@
+/* ===== SFG Contact Form Styling ===== */
+
+/* Card around the whole form */
+#form-Jo5U6AJsYV,
+.ContactForm {
+  background: #ffffff;
+  border: 1px solid #e6edf2;
+  border-top: 4px solid #ffd166;
+  border-radius: 8px;
+  box-shadow: 0 8px 28px rgba(7, 48, 75, 0.10);
+  padding: 32px;
+}
+
+/* Labels */
+#form-Jo5U6AJsYV label,
+.ContactForm label {
+  color: #07304b;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+}
+
+/* Input fields + textareas */
+#form-Jo5U6AJsYV input,
+#form-Jo5U6AJsYV textarea,
+#form-Jo5U6AJsYV select,
+.ContactForm input,
+.ContactForm textarea,
+.ContactForm select {
+  background: #f8fafb;
+  border: 1px solid #cdd9e0 !important;
+  border-radius: 5px !important;
+  color: #07304b !important;
+  padding: 12px 14px !important;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Focused field */
+#form-Jo5U6AJsYV input:focus,
+#form-Jo5U6AJsYV textarea:focus,
+#form-Jo5U6AJsYV select:focus,
+.ContactForm input:focus,
+.ContactForm textarea:focus,
+.ContactForm select:focus {
+  border-color: #ffd166 !important;
+  box-shadow: 0 0 0 3px rgba(255, 209, 102, 0.30) !important;
+  outline: none !important;
+}
+
+/* Placeholder text */
+#form-Jo5U6AJsYV ::placeholder,
+.ContactForm ::placeholder {
+  color: #8ba0ad;
+}
+
+/* Submit button */
+#form-Jo5U6AJsYV button,
+#form-Jo5U6AJsYV .submit-btn,
+.ContactForm button {
+  background: #07304b !important;
+  color: #ffd166 !important;
+  border: none !important;
+  border-radius: 5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em;
+  padding: 13px 28px !important;
+  transition: background 0.22s, color 0.22s;
+}
+
+#form-Jo5U6AJsYV button:hover,
+#form-Jo5U6AJsYV .submit-btn:hover,
+.ContactForm button:hover {
+  background: #ffd166 !important;
+  color: #07304b !important;
+}
