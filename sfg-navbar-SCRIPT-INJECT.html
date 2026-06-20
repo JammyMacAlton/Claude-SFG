@@ -1,29 +1,6 @@
-<!--
-=========================================================
-  SFG NAVBAR — JAVASCRIPT INJECTOR  (final GHL version)
-
-  ⭐ USE THIS ONE. ⭐
-
-  WHY: GoHighLevel's Footer/Header Tracking Code boxes STRIP
-  raw HTML (<nav>, <div>, <ul>...) and keep only <script> and
-  <style>. This version builds the whole navbar from inside a
-  <script>, so nothing gets stripped.
-
-  WHERE THIS GOES:
-  1. Page  →  Settings  →  Tracking Code
-  2. Open the  "Footer Tracking"  tab
-  3. Paste EVERYTHING below  →  Save  →  Publish
-     (Check the PUBLISHED / PREVIEW page, not the editor canvas.)
-
-  CLEAN UP FIRST:
-  - Empty the "Custom CSS" box from earlier.
-  - Remove any previous footer-code paste / canvas navbar element.
-=========================================================
--->
-
 <script>
 (function () {
-  if (window.__sfgNavLoaded) return;        /* avoid double-inject */
+  if (window.__sfgNavLoaded) return;
   window.__sfgNavLoaded = true;
 
   var css = ''
@@ -66,16 +43,16 @@
 
   var html = ''
     + '<div class="sfg-inner">'
-    +   '<a href="https://sfgtaxservice.com/home-5735" class="sfg-logo" aria-label="Solution Financial Group Home">'
+    +   '<a href="https://sfgtaxservice.com/home-5735" class="sfg-logo">'
     +     '<img src="https://assets.cdn.filesafe.space/frh1FySyXd0r7cSut9EW/media/6a36fa546a6dd1b69a5c5745.png" alt="Solution Financial Group">'
     +   '</a>'
-    +   '<div class="sfg-burger" id="sfgBurger" aria-label="Toggle menu"><span></span><span></span><span></span></div>'
+    +   '<div class="sfg-burger" id="sfgBurger"><span></span><span></span><span></span></div>'
     +   '<ul class="sfg-links" id="sfgLinks">'
     +     '<li><a href="https://sfgtaxservice.com/home-5735">Home</a></li>'
     +     '<li><a href="https://sfgtaxservice.com/about-us">About Us</a></li>'
     +     '<li><a href="https://sfgtaxservice.com/services">Services</a></li>'
     +     '<li><a href="https://www.irs.gov/wheres-my-refund" target="_blank" rel="noopener">Track My Refund</a></li>'
-    +     '<li class="sfg-div" aria-hidden="true"></li>'
+    +     '<li class="sfg-div"></li>'
     +     '<li class="sfg-cta"><a href="https://sfgtaxservice.com/new-client">Become a Client</a></li>'
     +   '</ul>'
     + '</div>';
@@ -83,27 +60,20 @@
   function build() {
     if (document.getElementById('sfg-nb')) return;
 
-    /* inject styles */
     var style = document.createElement('style');
-    style.id = 'sfg-nb-style';
     style.appendChild(document.createTextNode(css));
     document.head.appendChild(style);
 
-    /* build the navbar */
     var nav = document.createElement('nav');
     nav.id = 'sfg-nb';
-    nav.setAttribute('role', 'navigation');
-    nav.setAttribute('aria-label', 'Main Navigation');
     nav.innerHTML = html;
 
-    /* spacer so content isn't hidden behind the fixed bar */
     var spacer = document.createElement('div');
     spacer.id = 'sfg-nb-spacer';
 
     document.body.insertBefore(spacer, document.body.firstChild);
     document.body.insertBefore(nav, document.body.firstChild);
 
-    /* mobile menu toggle */
     var b = document.getElementById('sfgBurger');
     var n = document.getElementById('sfgLinks');
     if (b && n) {
