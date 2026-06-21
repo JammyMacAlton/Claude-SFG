@@ -1,8 +1,25 @@
-<!-- Earning — clean upward trend line over a baseline axis -->
+<!-- Earning — area chart with gradient fill, gold peak dot + arrow -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
-  <line x1="10" y1="52" x2="54" y2="52" stroke="#07304b" stroke-width="2" stroke-linecap="round"/>
-  <line x1="10" y1="52" x2="10" y2="12" stroke="#07304b" stroke-width="2" stroke-linecap="round"/>
-  <polyline points="12,44 22,34 32,38 44,20 54,12" stroke="#ffd166" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <circle cx="54" cy="12" r="3.5" fill="#ffd166"/>
-  <polyline points="48,12 54,12 54,18" stroke="#ffd166" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <defs>
+    <linearGradient id="earn-fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#ffd166" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#ffd166" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <!-- axes -->
+  <line x1="12" y1="52" x2="56" y2="52" stroke="#07304b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="12" y1="10" x2="12" y2="52" stroke="#07304b" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- tick marks -->
+  <line x1="12" y1="38" x2="10" y2="38" stroke="#07304b" stroke-width="1" stroke-linecap="round"/>
+  <line x1="12" y1="26" x2="10" y2="26" stroke="#07304b" stroke-width="1" stroke-linecap="round"/>
+  <line x1="26" y1="52" x2="26" y2="54" stroke="#07304b" stroke-width="1" stroke-linecap="round"/>
+  <line x1="40" y1="52" x2="40" y2="54" stroke="#07304b" stroke-width="1" stroke-linecap="round"/>
+  <!-- area fill -->
+  <polygon points="12,44 22,38 32,34 42,24 52,14 52,52 12,52" fill="url(#earn-fill)"/>
+  <!-- trend line -->
+  <polyline points="12,44 22,38 32,34 42,24 52,14" stroke="#07304b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- peak arrow -->
+  <circle cx="52" cy="14" r="3.5" fill="#ffd166"/>
+  <polyline points="48,10 52,6 56,10" stroke="#ffd166" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="52" y1="6" x2="52" y2="14" stroke="#ffd166" stroke-width="1.8" stroke-linecap="round"/>
 </svg>

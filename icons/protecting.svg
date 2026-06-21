@@ -1,6 +1,20 @@
-<!-- Protecting — minimal geometric shield with clean checkmark -->
+<!-- Protecting — layered architectural shield, inner detail, gold checkmark -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
-  <path d="M32 6 L52 14 V33 C52 45 43 53 32 58 C21 53 12 45 12 33 V14 Z" stroke="#07304b" stroke-width="2" stroke-linejoin="round"/>
-  <path d="M32 10 L48 16.8 V33 C48 43 40 50 32 54 C24 50 16 43 16 33 V16.8 Z" stroke="#07304b" stroke-width="1" stroke-linejoin="round" opacity="0.3"/>
-  <polyline points="22,32 29,40 42,24" stroke="#ffd166" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <defs>
+    <linearGradient id="shield-fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#07304b" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#07304b" stop-opacity="0.04"/>
+    </linearGradient>
+  </defs>
+  <!-- outer shield -->
+  <path d="M32 5 L54 13 V32 C54 46 44 55 32 60 C20 55 10 46 10 32 V13 Z"
+    fill="url(#shield-fill)" stroke="#07304b" stroke-width="2" stroke-linejoin="round"/>
+  <!-- inner shield layer -->
+  <path d="M32 11 L49 17.5 V32 C49 43 41 51 32 55 C23 51 15 43 15 32 V17.5 Z"
+    fill="none" stroke="#07304b" stroke-width="1" stroke-linejoin="round" opacity="0.35"/>
+  <!-- decorative horizontal rule inside -->
+  <line x1="22" y1="26" x2="42" y2="26" stroke="#07304b" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
+  <!-- gold checkmark — bold, centered -->
+  <polyline points="22,34 29,42 43,24"
+    stroke="#ffd166" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
