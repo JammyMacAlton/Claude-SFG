@@ -1,0 +1,6 @@
+<!-- Protecting — shield with dollar + checkmark -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <path d="M32 6 L52 14 V32 C52 44 43 52 32 58 C21 52 12 44 12 32 V14 Z" fill="#07304b"/>
+  <path d="M32 12 L46 17.6 V32 C46 41 39 47.5 32 51.5 C25 47.5 18 41 18 32 V17.6 Z" fill="none" stroke="#ffd166" stroke-width="2"/>
+  <path d="M32 22 V40 M28 25 H35 a3 3 0 0 1 0 6 H29 a3 3 0 0 0 0 6 H37" stroke="#ffd166" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

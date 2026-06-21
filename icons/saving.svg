@@ -1,0 +1,9 @@
+<!-- Saving — piggy bank with coin -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <path d="M50 30 c0 -2 2 -3 3 -5 c0 5 -1 6 -2 8" fill="#07304b"/>
+  <path d="M14 34 c0 -10 9 -16 19 -16 c8 0 15 4 18 10 c2 1 4 3 4 6 c0 2 -1 4 -3 5 c-1 4 -4 7 -7 9 v5 a2 2 0 0 1 -2 2 h-4 a2 2 0 0 1 -2 -2 v-2 h-8 v2 a2 2 0 0 1 -2 2 h-4 a2 2 0 0 1 -2 -2 v-6 c-3 -3 -5 -7 -5 -11 Z" fill="#07304b"/>
+  <circle cx="22" cy="32" r="2.4" fill="#fff"/>
+  <path d="M28 18 c2 -5 9 -6 12 -2 c-3 -1 -7 -1 -9 2 Z" fill="#ffd166"/>
+  <rect x="28" y="9" width="12" height="4" rx="2" fill="#ffd166"/>
+  <path d="M34 12 V18" stroke="#ffd166" stroke-width="3" stroke-linecap="round"/>
+</svg>
