@@ -1,6 +1,6 @@
-<!-- Protecting — shield with dollar + checkmark -->
+<!-- Protecting — minimal geometric shield with clean checkmark -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
-  <path d="M32 6 L52 14 V32 C52 44 43 52 32 58 C21 52 12 44 12 32 V14 Z" fill="#07304b"/>
-  <path d="M32 12 L46 17.6 V32 C46 41 39 47.5 32 51.5 C25 47.5 18 41 18 32 V17.6 Z" fill="none" stroke="#ffd166" stroke-width="2"/>
-  <path d="M32 22 V40 M28 25 H35 a3 3 0 0 1 0 6 H29 a3 3 0 0 0 0 6 H37" stroke="#ffd166" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M32 6 L52 14 V33 C52 45 43 53 32 58 C21 53 12 45 12 33 V14 Z" stroke="#07304b" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M32 10 L48 16.8 V33 C48 43 40 50 32 54 C24 50 16 43 16 33 V16.8 Z" stroke="#07304b" stroke-width="1" stroke-linejoin="round" opacity="0.3"/>
+  <polyline points="22,32 29,40 42,24" stroke="#ffd166" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 </svg>
