@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160" fill="none">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#0d4a6e"/><stop offset="100%" stop-color="#07304b"/></radialGradient>
+    <linearGradient id="ef" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffd166" stop-opacity="0.28"/><stop offset="100%" stop-color="#ffd166" stop-opacity="0"/></linearGradient>
+    <linearGradient id="vb" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.10"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0.04"/></linearGradient>
+    <linearGradient id="sf" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.12"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0.04"/></linearGradient>
+    <linearGradient id="shf" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.10"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0.04"/></linearGradient>
+  </defs>
+  <circle cx="80" cy="80" r="78" fill="url(#bg)"/>
+  <circle cx="80" cy="80" r="78" fill="none" stroke="#ffd166" stroke-width="2.5"/>
+  <circle cx="80" cy="80" r="70" fill="none" stroke="#ffd166" stroke-width="0.8" opacity="0.4"/>
+  <g transform="translate(48,48)"><defs>
+    <linearGradient id="shield-fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.04"/>
+    </linearGradient>
+  </defs>
+  
+  <path d="M32 5 L54 13 V32 C54 46 44 55 32 60 C20 55 10 46 10 32 V13 Z"
+    fill="url(#shf)" stroke="#ffffff" stroke-width="2" stroke-linejoin="round"/>
+  
+  <path d="M32 11 L49 17.5 V32 C49 43 41 51 32 55 C23 51 15 43 15 32 V17.5 Z"
+    fill="none" stroke="#ffffff" stroke-width="1" stroke-linejoin="round" opacity="0.35"/>
+  
+  <line x1="22" y1="26" x2="42" y2="26" stroke="#ffffff" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
+  
+  <polyline points="22,34 29,42 43,24"
+    stroke="#ffd166" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g>
+</svg>
