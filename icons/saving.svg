@@ -11,7 +11,7 @@
   <circle cx="32" cy="14" r="2.5" fill="#ffd166"/>
   <!-- dollar sign on bag -->
   <line x1="32" y1="28" x2="32" y2="50" stroke="#07304b" stroke-width="2" stroke-linecap="round"/>
-  <path d="M27 32 H36 a4 4 0 0 1 0 8 H28 a4 4 0 0 0 0 8 H37" stroke="#07304b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M37 32 H28 a4 4 0 0 0 0 8 H36 a4 4 0 0 1 0 8 H27" stroke="#07304b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
   <!-- gold shine highlight -->
   <path d="M16 32 Q14 38 16 44" stroke="#ffd166" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
 </svg>
