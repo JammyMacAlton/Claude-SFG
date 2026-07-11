@@ -1,0 +1,316 @@
+<style>
+.tc-wrap {
+  font-family: 'Inter', system-ui, sans-serif;
+  max-width: 680px;
+  margin: 40px auto;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+.tc-header {
+  background: #f8fafc;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 30px 40px;
+  text-align: center;
+}
+.tc-header h2 {
+  color: #1e293b;
+  font-size: 25px;
+  font-weight: 800;
+  margin: 0 0 6px;
+}
+.tc-header p {
+  color: #64748b;
+  font-size: 14px;
+  margin: 0;
+}
+.tc-body { padding: 34px 40px; }
+.tc-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  gap: 16px;
+}
+.tc-field label {
+  color: #334155;
+  font-size: 15px;
+  font-weight: 500;
+  flex: 1;
+}
+.tc-input-wrap {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #d8dee6;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f8fafc;
+  transition: border-color .2s, background .2s;
+}
+.tc-input-wrap:focus-within { border-color: #64748b; background: #fff; }
+.tc-prefix {
+  padding: 11px 8px 11px 14px;
+  color: #475569;
+  font-weight: 600;
+  font-size: 15px;
+}
+.tc-input-wrap input,
+.tc-input-wrap select {
+  border: none !important;
+  outline: none !important;
+  background: transparent;
+  padding: 11px 12px;
+  font-size: 15px;
+  color: #1e293b;
+  font-weight: 600;
+  width: 150px;
+}
+.tc-input-wrap select { width: 200px; cursor: pointer; }
+.tc-divider { height: 1px; background: #eef2f6; margin: 26px 0; }
+.tc-btn {
+  width: 100%;
+  padding: 16px;
+  background: #1e293b;
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: background .2s, transform .2s;
+}
+.tc-btn:hover { background: #0f172a; transform: translateY(-2px); }
+.tc-results { display: none; margin-top: 28px; }
+.tc-results.active { display: block; }
+.tc-result-cards { display: flex; gap: 16px; margin-bottom: 22px; }
+.tc-result-card {
+  flex: 1;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 22px 20px;
+  text-align: center;
+}
+.tc-result-card.net { background: #1e293b; border-color: #1e293b; }
+.tc-result-card .tc-big {
+  font-size: 30px;
+  font-weight: 800;
+  color: #1e293b;
+  display: block;
+  margin-bottom: 4px;
+}
+.tc-result-card.net .tc-big { color: #fff; }
+.tc-result-card .tc-sub { font-size: 12px; color: #64748b; }
+.tc-result-card.net .tc-sub { color: #cbd5e1; }
+.tc-result-card .tc-label {
+  font-size: 13px; color: #64748b; margin-top: 8px; display: block;
+}
+.tc-result-card.net .tc-label { color: #cbd5e1; }
+.tc-breakdown {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 18px 22px;
+}
+.tc-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 14px;
+  color: #475569;
+  border-bottom: 1px solid #eef2f6;
+}
+.tc-row:last-child { border-bottom: none; }
+.tc-row span:last-child { font-weight: 700; color: #1e293b; }
+.tc-note { font-size: 12px; color: #94a3b8; margin-top: 14px; line-height: 1.5; text-align: center; }
+@media (max-width: 600px) {
+  .tc-field { flex-direction: column; align-items: stretch; }
+  .tc-input-wrap input, .tc-input-wrap select { width: 100%; }
+  .tc-result-cards { flex-direction: column; }
+}
+</style>
+
+<div class="tc-wrap">
+  <div class="tc-header">
+    <h2>Take-Home Pay Calculator</h2>
+    <p>Estimate your gross vs. net income after federal, state &amp; FICA taxes</p>
+  </div>
+  <div class="tc-body">
+
+    <div class="tc-field">
+      <label>Annual gross income</label>
+      <div class="tc-input-wrap">
+        <span class="tc-prefix">$</span>
+        <input type="number" id="tc-income" value="75000" min="0">
+      </div>
+    </div>
+
+    <div class="tc-field">
+      <label>Filing status</label>
+      <div class="tc-input-wrap">
+        <select id="tc-filing">
+          <option value="single">Single</option>
+          <option value="married">Married filing jointly</option>
+          <option value="hoh">Head of household</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="tc-field">
+      <label>State</label>
+      <div class="tc-input-wrap">
+        <select id="tc-state"></select>
+      </div>
+    </div>
+
+    <div class="tc-field">
+      <label>Show take-home per</label>
+      <div class="tc-input-wrap">
+        <select id="tc-freq">
+          <option value="1">Year</option>
+          <option value="12">Month</option>
+          <option value="26">Paycheck (bi-weekly)</option>
+          <option value="52">Week</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="tc-divider"></div>
+
+    <button class="tc-btn" onclick="tcCalculate()">Calculate</button>
+
+    <div class="tc-results" id="tc-results">
+      <div class="tc-result-cards">
+        <div class="tc-result-card">
+          <span class="tc-big" id="tc-gross">--</span>
+          <span class="tc-sub" id="tc-gross-per"></span>
+          <span class="tc-label">Gross pay</span>
+        </div>
+        <div class="tc-result-card net">
+          <span class="tc-big" id="tc-net">--</span>
+          <span class="tc-sub" id="tc-net-per"></span>
+          <span class="tc-label">Net take-home</span>
+        </div>
+      </div>
+      <div class="tc-breakdown">
+        <div class="tc-row"><span>Federal income tax</span><span id="tc-fed">--</span></div>
+        <div class="tc-row"><span>State income tax</span><span id="tc-state-tax">--</span></div>
+        <div class="tc-row"><span>Social Security (6.2%)</span><span id="tc-ss">--</span></div>
+        <div class="tc-row"><span>Medicare (1.45%)</span><span id="tc-medi">--</span></div>
+        <div class="tc-row"><span>Total tax</span><span id="tc-total">--</span></div>
+        <div class="tc-row"><span>Effective tax rate</span><span id="tc-eff">--</span></div>
+      </div>
+      <p class="tc-note">Estimate only — uses 2024 federal brackets, FICA, and a simplified flat state rate. Excludes local taxes, deductions (401k/health), and credits. Not tax advice.</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// Simplified flat state income tax rates (%) — ballpark for a mid-income earner
+var TC_STATES = {
+  "Alabama":4.0,"Alaska":0,"Arizona":2.5,"Arkansas":3.9,"California":6.0,
+  "Colorado":4.4,"Connecticut":5.0,"Delaware":5.0,"Florida":0,"Georgia":5.49,
+  "Hawaii":7.0,"Idaho":5.8,"Illinois":4.95,"Indiana":3.15,"Iowa":4.4,
+  "Kansas":5.0,"Kentucky":4.0,"Louisiana":3.0,"Maine":5.8,"Maryland":4.75,
+  "Massachusetts":5.0,"Michigan":4.25,"Minnesota":6.5,"Mississippi":4.7,"Missouri":4.8,
+  "Montana":5.9,"Nebraska":5.2,"Nevada":0,"New Hampshire":0,"New Jersey":5.5,
+  "New Mexico":4.9,"New York":6.0,"North Carolina":4.5,"North Dakota":1.95,"Ohio":3.5,
+  "Oklahoma":4.75,"Oregon":8.75,"Pennsylvania":3.07,"Rhode Island":4.75,"South Carolina":6.4,
+  "South Dakota":0,"Tennessee":0,"Texas":0,"Utah":4.65,"Vermont":6.0,
+  "Virginia":5.75,"Washington":0,"West Virginia":5.12,"Wisconsin":5.3,"Wyoming":0,
+  "District of Columbia":6.5
+};
+
+// 2024 federal brackets + standard deductions
+var TC_FED = {
+  single: {
+    std: 14600,
+    b: [[11600,0.10],[47150,0.12],[100525,0.22],[191950,0.24],[243725,0.32],[609350,0.35],[Infinity,0.37]]
+  },
+  married: {
+    std: 29200,
+    b: [[23200,0.10],[94300,0.12],[201050,0.22],[383900,0.24],[487450,0.32],[731200,0.35],[Infinity,0.37]]
+  },
+  hoh: {
+    std: 21900,
+    b: [[16550,0.10],[63100,0.12],[100500,0.22],[191950,0.24],[243700,0.32],[609350,0.35],[Infinity,0.37]]
+  }
+};
+
+var TC_SS_CAP = 168600;   // 2024 Social Security wage base
+var TC_SS_RATE = 0.062;
+var TC_MEDI_RATE = 0.0145;
+var TC_ADDL_MEDI = 0.009; // extra 0.9% over threshold
+var TC_ADDL_THRESH = { single:200000, hoh:200000, married:250000 };
+
+// Populate the state dropdown
+(function(){
+  var sel = document.getElementById('tc-state');
+  var names = Object.keys(TC_STATES);
+  for (var i=0;i<names.length;i++){
+    var o = document.createElement('option');
+    o.value = names[i]; o.textContent = names[i];
+    if (names[i] === "Texas") o.selected = true;
+    sel.appendChild(o);
+  }
+})();
+
+function tcFederalTax(taxable, filing) {
+  var br = TC_FED[filing].b;
+  var tax = 0, prev = 0;
+  for (var i=0;i<br.length;i++){
+    var cap = br[i][0], rate = br[i][1];
+    if (taxable > cap) { tax += (cap - prev) * rate; prev = cap; }
+    else { tax += (taxable - prev) * rate; break; }
+  }
+  return Math.max(0, tax);
+}
+
+function tcMoney(n){ return '$' + Math.round(n).toLocaleString(); }
+
+function tcCalculate() {
+  var income = parseFloat(document.getElementById('tc-income').value) || 0;
+  var filing = document.getElementById('tc-filing').value;
+  var state  = document.getElementById('tc-state').value;
+  var freq   = parseInt(document.getElementById('tc-freq').value);
+
+  // Federal (on income minus standard deduction)
+  var taxable = Math.max(0, income - TC_FED[filing].std);
+  var fed = tcFederalTax(taxable, filing);
+
+  // State (simplified flat rate on gross)
+  var stateRate = (TC_STATES[state] || 0) / 100;
+  var stateTax = income * stateRate;
+
+  // FICA
+  var ss = Math.min(income, TC_SS_CAP) * TC_SS_RATE;
+  var medi = income * TC_MEDI_RATE;
+  if (income > TC_ADDL_THRESH[filing]) {
+    medi += (income - TC_ADDL_THRESH[filing]) * TC_ADDL_MEDI;
+  }
+
+  var totalTax = fed + stateTax + ss + medi;
+  var net = income - totalTax;
+  var eff = income > 0 ? (totalTax / income * 100) : 0;
+
+  var perLabel = {1:'per year',12:'per month',26:'per paycheck',52:'per week'}[freq];
+
+  document.getElementById('tc-gross').textContent = tcMoney(income);
+  document.getElementById('tc-gross-per').textContent = tcMoney(income/freq) + ' ' + perLabel;
+  document.getElementById('tc-net').textContent = tcMoney(net);
+  document.getElementById('tc-net-per').textContent = tcMoney(net/freq) + ' ' + perLabel;
+
+  document.getElementById('tc-fed').textContent = tcMoney(fed);
+  document.getElementById('tc-state-tax').textContent = tcMoney(stateTax) + '  (' + (TC_STATES[state]||0) + '%)';
+  document.getElementById('tc-ss').textContent = tcMoney(ss);
+  document.getElementById('tc-medi').textContent = tcMoney(medi);
+  document.getElementById('tc-total').textContent = tcMoney(totalTax);
+  document.getElementById('tc-eff').textContent = eff.toFixed(1) + '%';
+
+  document.getElementById('tc-results').classList.add('active');
+}
+</script>
