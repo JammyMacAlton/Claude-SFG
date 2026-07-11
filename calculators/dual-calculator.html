@@ -89,6 +89,19 @@
 .dc-result-card .dc-label { font-size: 13px; color: #64748b; margin-top: 8px; display: block; line-height: 1.4; }
 .dc-result-card.dark .dc-label { color: #cbd5e1; }
 
+/* ---- Refund banner ---- */
+.dc-refund {
+  text-align: center; border-radius: 12px; padding: 22px 20px; margin-bottom: 20px;
+  border: 1.5px solid #cbd5e1; background: #f8fafc;
+}
+.dc-refund.refund { border-color: #86c9a4; background: #f0faf4; }
+.dc-refund.owe { border-color: #e6b8b8; background: #fdf3f3; }
+.dc-refund-label { display: block; font-size: 13px; color: #64748b; font-weight: 600; letter-spacing: .3px; text-transform: uppercase; }
+.dc-refund-amt { display: block; font-size: 38px; font-weight: 800; color: #0f172a; margin: 6px 0 2px; }
+.dc-refund.refund .dc-refund-amt { color: #15803d; }
+.dc-refund.owe .dc-refund-amt { color: #b91c1c; }
+.dc-refund-sub { display: block; font-size: 13px; color: #64748b; }
+
 .dc-breakdown { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 10px; padding: 18px 22px; }
 .dc-row {
   display: flex; justify-content: space-between; padding: 8px 0;
@@ -116,15 +129,15 @@
 
   <!-- Tab switcher -->
   <div class="dc-tabs">
-    <button class="dc-tab active" id="dc-tab-tax" onclick="dcSwitch('tax')">Take-Home Pay</button>
+    <button class="dc-tab active" id="dc-tab-tax" onclick="dcSwitch('tax')">Tax Calculator</button>
     <button class="dc-tab" id="dc-tab-mil" onclick="dcSwitch('mil')">Millionaire</button>
   </div>
 
   <!-- ============ TAX PANEL (default) ============ -->
   <div class="dc-panel active" id="dc-panel-tax">
     <div class="dc-head">
-      <h2>Take-Home Pay Calculator</h2>
-      <p>Estimate your gross vs. net income after federal, state &amp; FICA taxes</p>
+      <h2>Tax Calculator</h2>
+      <p>Estimate your take-home pay and federal refund after taxes</p>
     </div>
 
     <div class="dc-field">
@@ -165,6 +178,14 @@
       </div>
     </div>
 
+    <div class="dc-field">
+      <label>Federal tax withheld this year <span style="color:#94a3b8;font-weight:400;">(from your W-2/paystub)</span></label>
+      <div class="dc-input-wrap">
+        <span class="dc-prefix">$</span>
+        <input type="number" id="tc-withheld" value="9000" min="0">
+      </div>
+    </div>
+
     <div class="dc-divider"></div>
     <button class="dc-btn" onclick="tcCalculate()">Calculate</button>
 
@@ -180,6 +201,11 @@
           <span class="dc-sub" id="tc-net-per"></span>
           <span class="dc-label">Net take-home</span>
         </div>
+      </div>
+      <div class="dc-refund" id="tc-refund-banner">
+        <span class="dc-refund-label" id="tc-refund-label">Estimated federal refund</span>
+        <span class="dc-refund-amt" id="tc-refund">--</span>
+        <span class="dc-refund-sub" id="tc-refund-sub"></span>
       </div>
       <div class="dc-breakdown">
         <div class="dc-row"><span>Federal income tax</span><span id="tc-fed">--</span></div>
@@ -325,6 +351,7 @@ function tcCalculate() {
   var filing = document.getElementById('tc-filing').value;
   var state  = document.getElementById('tc-state').value;
   var freq   = parseInt(document.getElementById('tc-freq').value);
+  var withheld = parseFloat(document.getElementById('tc-withheld').value) || 0;
 
   var taxable = Math.max(0, income - TC_FED[filing].std);
   var fed = tcFederalTax(taxable, filing);
@@ -348,6 +375,23 @@ function tcCalculate() {
   document.getElementById('tc-medi').textContent = tcMoney(medi);
   document.getElementById('tc-total').textContent = tcMoney(totalTax);
   document.getElementById('tc-eff').textContent = eff.toFixed(1) + '%';
+
+  // Estimated federal refund = withheld - federal income tax owed
+  var refund = withheld - fed;
+  var banner = document.getElementById('tc-refund-banner');
+  banner.classList.remove('refund', 'owe');
+  if (refund >= 0) {
+    banner.classList.add('refund');
+    document.getElementById('tc-refund-label').textContent = 'Estimated federal refund';
+    document.getElementById('tc-refund').textContent = tcMoney(refund);
+    document.getElementById('tc-refund-sub').textContent = 'You withheld more than you owe — this comes back to you.';
+  } else {
+    banner.classList.add('owe');
+    document.getElementById('tc-refund-label').textContent = 'Estimated amount you owe';
+    document.getElementById('tc-refund').textContent = tcMoney(Math.abs(refund));
+    document.getElementById('tc-refund-sub').textContent = 'You withheld less than you owe — you may owe this at filing.';
+  }
+
   document.getElementById('tc-results').classList.add('active');
 }
 
