@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terra Incognita &mdash; A Quill Draws an Old Map</title>
+<style>
+  :root{
+    --ink:#33200f;
+    --ink-faint:#6b4a2a;
+    --parch-1:#f0dcb2;
+    --parch-2:#e2c894;
+    --parch-3:#cdad78;
+    --wood-1:#2a1d14;
+    --wood-2:#160f0a;
+  }
+
+  *{box-sizing:border-box}
+
+  html,body{height:100%}
+
+  body{
+    margin:0;
+    min-height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+    padding:28px 16px 34px;
+    font-family:Georgia,"Times New Roman",serif;
+    color:#e8d7b4;
+    background:radial-gradient(120% 90% at 50% 0%, #3b2a1d 0%, var(--wood-1) 45%, var(--wood-2) 100%);
+  }
+
+  /* ---------- parchment sheet ---------- */
+  .sheet{
+    position:relative;
+    width:min(100%,1040px);
+    aspect-ratio:1000/700;
+    border-radius:4px;
+    overflow:hidden;
+    background:
+      radial-gradient(60% 45% at 22% 18%, rgba(255,248,225,.85) 0%, rgba(255,248,225,0) 60%),
+      radial-gradient(70% 55% at 82% 88%, rgba(150,112,66,.30) 0%, rgba(150,112,66,0) 62%),
+      radial-gradient(140% 110% at 50% 50%, var(--parch-1) 0%, var(--parch-2) 58%, var(--parch-3) 100%);
+    box-shadow:
+      0 2px 0 rgba(255,255,255,.10) inset,
+      0 40px 70px -28px rgba(0,0,0,.85),
+      0 0 0 1px rgba(60,40,20,.55);
+  }
+
+  /* coffee rings and foxing */
+  .sheet::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    mix-blend-mode:multiply;
+    background:
+      radial-gradient(circle at 12% 84%, rgba(120,80,36,.26) 0 6%, rgba(120,80,36,0) 12%),
+      radial-gradient(circle at 91% 12%, rgba(120,80,36,.22) 0 5%, rgba(120,80,36,0) 11%),
+      radial-gradient(circle at 68% 93%, rgba(105,68,28,.18) 0 4%, rgba(105,68,28,0) 9%),
+      radial-gradient(circle at 34% 6%,  rgba(105,68,28,.16) 0 3%, rgba(105,68,28,0) 8%);
+  }
+
+  /* vignette / scorched edges */
+  .sheet::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    mix-blend-mode:multiply;
+    background:radial-gradient(115% 100% at 50% 50%, rgba(0,0,0,0) 52%, rgba(78,48,18,.30) 82%, rgba(52,30,10,.62) 100%);
+  }
+
+  .grain{
+    position:absolute;
+    inset:-2%;
+    width:104%;
+    height:104%;
+    opacity:.30;
+    mix-blend-mode:multiply;
+    pointer-events:none;
+  }
+
+  #map{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+  /* ---------- ink ---------- */
+  #ink path,#ink circle,#ink line,#ink rect{
+    fill:none;
+    stroke:var(--ink);
+    stroke-width:2;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+  .hair{stroke-width:1.1 !important;stroke:var(--ink-faint) !important;opacity:.78}
+  .thick{stroke-width:3.1 !important}
+  .fine{stroke-width:1.5 !important}
+  #ink text{
+    fill:var(--ink);
+    stroke:none;
+    text-anchor:middle;
+    font-family:Georgia,"Times New Roman",serif;
+  }
+  .land-fill{fill:rgba(198,160,101,.30) !important;stroke:none !important}
+  .sail-fill{fill:rgba(243,232,204,.62) !important;stroke:var(--ink) !important;stroke-width:1.4 !important}
+  .rhumb{stroke:var(--ink-faint) !important;stroke-width:.8 !important;opacity:.20}
+  .splat{fill:var(--ink) !important;stroke:none !important;opacity:.55}
+
+  /* ---------- quill ---------- */
+  #quill{pointer-events:none}
+  .q-vane{fill:#f6efdd;stroke:#6d5535;stroke-width:1.2}
+  .q-vane-shade{fill:rgba(150,124,80,.35);stroke:none}
+  .q-stem{fill:none;stroke:#6d5535;stroke-width:2}
+  .q-nib{fill:#3a3630;stroke:#1e1c18;stroke-width:1}
+  .q-barb{stroke:rgba(109,85,53,.55);stroke-width:.8;fill:none}
+  #wetInk{fill:var(--ink);opacity:.5}
+
+  /* ---------- chrome ---------- */
+  .title-line{
+    margin:0;
+    font-size:13px;
+    letter-spacing:.34em;
+    text-transform:uppercase;
+    color:#b79a6b;
+    text-align:center;
+  }
+
+  .controls{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+
+  button{
+    font:inherit;
+    font-size:13px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:#f0dcb2;
+    background:linear-gradient(#4a3524,#312215);
+    border:1px solid #6b4d31;
+    border-radius:3px;
+    padding:9px 16px;
+    cursor:pointer;
+    transition:transform .12s ease,background .2s ease,color .2s ease;
+    box-shadow:0 2px 0 rgba(0,0,0,.5),0 1px 0 rgba(255,255,255,.08) inset;
+  }
+  button:hover{background:linear-gradient(#5b422d,#3b2919);color:#fff3d6}
+  button:active{transform:translateY(1px)}
+  button:focus-visible{outline:2px solid #c8a56d;outline-offset:2px}
+
+  .progress{
+    width:min(100%,1040px);
+    height:3px;
+    background:rgba(255,255,255,.09);
+    border-radius:2px;
+    overflow:hidden;
+  }
+  #bar{
+    height:100%;
+    width:0;
+    background:linear-gradient(90deg,#8a6a3f,#d9b978);
+    transition:width .12s linear;
+  }
+</style>
+</head>
+<body>
+
+<p class="title-line">The Cartographer&rsquo;s Hand</p>
+
+<div class="sheet">
+  <!-- paper grain -->
+  <svg class="grain" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <filter id="grainFilter">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#grainFilter)"/>
+  </svg>
+
+  <svg id="map" viewBox="0 0 1000 700" role="img"
+       aria-label="An animated quill pen drawing an old-fashioned treasure map">
+
+    <defs>
+      <!-- hand-drawn wobble applied to every inked line -->
+      <filter id="rough" x="-4%" y="-4%" width="108%" height="108%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.021" numOctaves="1" seed="9" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="2.4"
+                           xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+
+      <filter id="quillShadow" x="-40%" y="-40%" width="180%" height="180%">
+        <feDropShadow dx="7" dy="11" stdDeviation="7" flood-color="#3a2512" flood-opacity=".38"/>
+      </filter>
+
+      <filter id="inkBlur" x="-60%" y="-60%" width="220%" height="220%">
+        <feGaussianBlur stdDeviation="1.1"/>
+      </filter>
+
+      <!-- keeps the radiating rhumb lines inside the border -->
+      <clipPath id="innerClip">
+        <rect x="38" y="38" width="924" height="624"/>
+      </clipPath>
+
+      <!-- hidden guide: the trail is dabbed along this curve -->
+      <path id="trailGuide"
+            d="M 286,432 C 330,454 362,440 396,456
+               C 430,472 468,468 502,486
+               C 540,506 578,502 612,488
+               C 624,483 630,478 638,472"/>
+    </defs>
+
+    <!-- ============ everything the quill draws ============ -->
+    <g id="ink" filter="url(#rough)">
+
+      <!-- 1. double border -->
+      <path id="frame" class="thick"
+            d="M 26,26 L 974,26 L 974,674 L 26,674 L 26,26 Z
+               M 38,38 L 962,38 L 962,662 L 38,662 L 38,38 Z"/>
+
+      <!-- 2. rhumb lines radiating from the compass (built by script) -->
+      <g id="rhumbGroup" clip-path="url(#innerClip)"></g>
+
+      <!-- 3-5. coastline, sandy interior, shoreline echo (all built by script) -->
+      <path id="coast" d=""/>
+      <path id="coastFill" class="land-fill" d=""/>
+      <path id="coastEcho" class="hair"
+            transform="translate(494,396) scale(.945) translate(-494,-396)" d=""/>
+
+      <!-- 6. outlying isles -->
+      <path id="isles"
+            d="M 118,332 C 128,316 154,312 168,324 C 182,336 176,352 160,357 C 142,362 126,350 118,332 Z
+               M 858,566 C 872,548 902,546 916,560 C 928,572 920,592 900,596 C 878,600 862,586 858,566 Z
+               M 696,120 C 706,110 724,112 728,122 C 732,132 720,140 708,136 C 700,133 694,128 696,120 Z"/>
+      <path id="islesFill" class="land-fill"
+            d="M 118,332 C 128,316 154,312 168,324 C 182,336 176,352 160,357 C 142,362 126,350 118,332 Z
+               M 858,566 C 872,548 902,546 916,560 C 928,572 920,592 900,596 C 878,600 862,586 858,566 Z
+               M 696,120 C 706,110 724,112 728,122 C 732,132 720,140 708,136 C 700,133 694,128 696,120 Z"/>
+
+      <!-- 7. mountain ranges -->
+      <path id="mountains"
+            d="M 306,352 L 330,312 L 348,338 L 366,300 L 392,352
+               M 404,318 L 428,282 L 446,310 L 464,276 L 490,320
+               M 560,300 L 582,266 L 598,292 L 616,262 L 640,306"/>
+      <path id="mountShade" class="hair"
+            d="M 332,320 L 339,336 M 368,308 L 375,326
+               M 430,290 L 437,306 M 466,284 L 473,300
+               M 584,274 L 590,288 M 618,270 L 625,286"/>
+
+      <!-- 8. river, running from the highlands to the southern shore -->
+      <path id="river" class="fine"
+            d="M 442,322 C 454,362 426,394 440,432
+               C 450,464 432,490 444,522
+               C 450,540 452,550 456,558"/>
+
+      <!-- 9. forest (built by script) -->
+      <path id="forest" class="fine" d=""/>
+
+      <!-- 10. compass rose -->
+      <path id="compassRing"
+            d="M 892,150 A 62,62 0 1 1 891.9,149 Z
+               M 874,150 A 44,44 0 1 1 873.9,149 Z"/>
+      <path id="compassStar"
+            d="M 830,84 L 844,136 L 896,150 L 844,164 L 830,216 L 816,164 L 764,150 L 816,136 Z"/>
+      <path id="compassMinor" class="hair"
+            d="M 830,150 L 864,116 M 830,150 L 864,184 M 830,150 L 796,184 M 830,150 L 796,116"/>
+      <text id="compassN" x="830" y="76" font-size="17" letter-spacing="1">N</text>
+
+      <!-- 11. sea (built by script) -->
+      <path id="waves" class="fine" d=""/>
+
+      <!-- 12. single-masted cog: hull, mast, yard, bowsprit -->
+      <path id="shipHull"
+            d="M 152,158 C 180,168 240,168 270,158 C 266,180 240,192 210,192 C 180,192 156,180 152,158 Z
+               M 210,166 L 210,78
+               M 184,106 L 238,106
+               M 270,160 L 288,150"/>
+      <!-- a square sail, slack at the foot -->
+      <path id="shipSails" class="sail-fill"
+            d="M 184,106 L 238,106 L 240,146 C 224,152 198,152 182,146 Z"/>
+      <path id="shipFlag" class="fine" d="M 210,78 L 232,84 L 210,90"/>
+
+      <!-- 13. sea serpent, coiling above the waterline
+              (shifted clear of the island's south-west peninsula) -->
+      <g transform="translate(-46,16)">
+        <path id="serpent"
+              d="M 138,618 C 144,600 168,590 190,596 C 204,600 208,612 198,622 C 188,630 152,632 138,618 Z
+                 M 139,619 C 158,622 178,620 194,616
+                 M 204,616 C 220,582 250,582 264,616
+                 M 266,616 C 280,586 306,586 318,616
+                 M 320,616 C 332,594 350,594 358,616
+                 M 233,592 L 235,580 M 291,595 L 293,583 M 339,601 L 341,590
+                 M 360,616 C 372,608 380,594 372,580 C 380,588 390,590 396,586"/>
+        <path id="serpentEye" class="fine"
+              d="M 176,603 l .6,0 M 139,619 L 124,615 M 131,617 L 124,622"/>
+      </g>
+
+      <!-- 14. treasure trail (dabbed by script) -->
+      <path id="trail" class="fine" d=""/>
+
+      <!-- 15. X marks the spot -->
+      <path id="xMark" class="thick" d="M 640,440 L 676,474 M 676,440 L 640,474"/>
+      <text id="xLabel" x="658" y="428" font-size="15" font-style="italic">Ye Treasure</text>
+
+      <!-- 16. scale bar -->
+      <path id="scaleBar" class="fine"
+            d="M 762,616 L 902,616
+               M 762,609 L 762,623 M 797,610 L 797,622
+               M 832,609 L 832,623 M 867,610 L 867,622 M 902,609 L 902,623"/>
+      <text id="scaleLabel" x="832" y="641" font-size="12" letter-spacing="2.4">LEAGUES</text>
+
+      <!-- 17. title cartouche -->
+      <path id="cartouche"
+            d="M 296,46 L 704,46 L 722,74 L 704,102 L 296,102 L 278,74 Z"/>
+      <path id="cartoucheInner" class="hair"
+            d="M 306,54 L 694,54 L 708,74 L 694,94 L 306,94 L 292,74 Z"/>
+      <text id="titleText" x="500" y="82" font-size="30" letter-spacing="7">TERRA INCOGNITA</text>
+
+      <!-- 18. flourish -->
+      <text id="subText" x="420" y="652" font-size="17" font-style="italic">&#183; Here Be Dragons &#183;</text>
+
+      <!-- 19. parting ink splatter -->
+      <g id="splatter">
+        <circle class="splat" cx="908" cy="676" r="3.4"/>
+        <circle class="splat" cx="922" cy="668" r="1.7"/>
+        <circle class="splat" cx="896" cy="686" r="1.2"/>
+        <circle class="splat" cx="930" cy="682" r="2.2"/>
+      </g>
+    </g>
+
+    <!-- wet ink pooling under the nib -->
+    <ellipse id="wetInk" rx="2.6" ry="2.2" cx="-100" cy="-100" filter="url(#inkBlur)" opacity="0"/>
+
+    <!-- ============ the quill ============ -->
+    <g id="quill" filter="url(#quillShadow)" opacity="0">
+      <g id="quillBody">
+        <!-- feather blade -->
+        <path class="q-vane" d="M 50,-152 C 14,-132 -4,-94 8,-56 C 18,-80 22,-96 32,-110 C 40,-124 46,-138 50,-152 Z"/>
+        <path class="q-vane" d="M 50,-152 C 76,-124 80,-90 62,-60 C 58,-84 54,-100 46,-114 C 40,-128 46,-140 50,-152 Z"/>
+        <path class="q-vane-shade" d="M 50,-152 C 46,-138 40,-124 32,-110 C 22,-96 18,-80 8,-56 C 26,-78 40,-110 50,-152 Z"/>
+        <!-- barbs -->
+        <path class="q-barb" d="M 44,-136 L 26,-124 M 40,-120 L 20,-108 M 36,-104 L 18,-90 M 32,-88 L 14,-74
+                                M 52,-136 L 68,-122 M 54,-120 L 72,-104 M 56,-104 L 70,-86 M 58,-88 L 68,-70"/>
+        <!-- shaft -->
+        <path class="q-stem" d="M 2,-9 C 4,-24 6,-42 9,-58 C 20,-92 36,-124 50,-152"/>
+        <!-- metal nib -->
+        <path class="q-nib" d="M 0,0 L -4,-11 L 6,-13 Z"/>
+      </g>
+    </g>
+  </svg>
+</div>
+
+<div class="progress"><div id="bar"></div></div>
+
+<div class="controls">
+  <button id="replay" type="button">Replay</button>
+  <button id="speed" type="button">Speed &times;1</button>
+  <button id="finish" type="button">Skip to end</button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  const SVGNS   = 'http://www.w3.org/2000/svg';
+  const svg     = document.getElementById('map');
+  const quill   = document.getElementById('quill');
+  const qBody   = document.getElementById('quillBody');
+  const wetInk  = document.getElementById('wetInk');
+  const bar     = document.getElementById('bar');
+
+  /* ==================================================================
+     Procedural geography — built before anything is measured
+     ================================================================== */
+
+  // Coastline as a run of short segments: crinkly like a real survey,
+  // and the `rough` filter roughens it further. One source of truth for
+  // the outline, the sandy fill and the inset shoreline echo.
+  const COAST = [
+    [262,300],[278,278],[300,262],[322,256],[338,250],[348,266],[364,258],
+    [382,246],[402,238],[420,232],[442,220],[466,210],[490,206],[500,224],
+    [516,232],[534,216],[554,210],[572,208],[590,218],[606,226],[620,210],
+    [638,204],[656,214],[670,228],[684,240],[696,258],[700,276],[690,296],
+    [704,312],[716,330],[724,346],[734,368],[736,392],[726,410],[718,424],
+    [730,440],[732,458],[720,476],[708,492],[690,506],[668,514],[650,518],
+    [642,536],[626,556],[610,568],[598,552],[588,538],[570,544],[552,550],
+    [532,542],[512,538],[500,556],[482,568],[466,572],[448,564],[434,558],
+    [424,576],[408,588],[392,572],[384,552],[372,538],[356,530],[338,528],
+    [320,540],[304,528],[292,510],[288,492],[296,472],[300,456],[282,448],
+    [264,438],[252,422],[258,406],[272,398],[262,382],[254,368],[260,350],
+    [268,334],[262,316]
+  ];
+  const coastD = 'M ' + COAST.map(function(p){ return p[0] + ',' + p[1]; }).join(' L ') + ' Z';
+  ['coast','coastFill','coastEcho'].forEach(function(id){
+    document.getElementById(id).setAttribute('d', coastD);
+  });
+
+  // Conifer marks: trunk, then a closed triangle for the canopy.
+  const TREES = [
+    [326,486],[344,498],[364,486],[308,500],[382,498],[342,472],
+    [584,392],[604,380],[622,392],[566,404],[640,384],[600,362],
+    [500,508],[520,520],[480,522]
+  ];
+  document.getElementById('forest').setAttribute('d',
+    TREES.map(function(t){
+      const x = t[0], y = t[1];
+      return 'M ' + x + ',' + y + ' L ' + x + ',' + (y - 5) +
+             ' M ' + (x - 7) + ',' + (y - 5) +
+             ' L ' + x + ',' + (y - 19) +
+             ' L ' + (x + 7) + ',' + (y - 5) + ' Z';
+    }).join(' ')
+  );
+
+  // Wave tildes, in open water only.
+  const WAVES = [
+    [70,122],[60,246],[96,420],[84,528],[200,300],[196,424],[152,486],
+    [330,152],[434,140],[534,152],[622,146],
+    [790,300],[862,392],[918,478],[790,470],
+    [418,622],[604,622],[684,652]
+  ];
+  document.getElementById('waves').setAttribute('d',
+    WAVES.map(function(w){
+      return 'M ' + w[0] + ',' + w[1] + ' c 6,-6 12,-6 18,0 c 6,6 12,6 18,0';
+    }).join(' ')
+  );
+
+  // 16 rhumb lines radiating from the compass rose.
+  const rhumbGroup = document.getElementById('rhumbGroup');
+  const CX = 830, CY = 150;
+  for (let i = 0; i < 16; i++){
+    const a  = (Math.PI * 2 / 16) * i;
+    const ln = document.createElementNS(SVGNS,'path');
+    ln.setAttribute('class','rhumb');
+    ln.setAttribute('d','M ' + CX + ',' + CY + ' L ' +
+      (CX + Math.cos(a) * 1200).toFixed(1) + ',' +
+      (CY + Math.sin(a) * 1200).toFixed(1));
+    rhumbGroup.appendChild(ln);
+  }
+
+  // Dab the treasure trail out as short dashes along the hidden guide.
+  (function buildTrail(){
+    const guide = document.getElementById('trailGuide');
+    const total = guide.getTotalLength();
+    const STEP  = 17;    // gap between dabs
+    const DASH  = 7.5;   // length of a dab
+    const parts = [];
+    for (let d = 0; d + DASH < total; d += STEP){
+      const a = guide.getPointAtLength(d);
+      const b = guide.getPointAtLength(d + DASH);
+      parts.push('M ' + a.x.toFixed(1) + ',' + a.y.toFixed(1) +
+                 ' L ' + b.x.toFixed(1) + ',' + b.y.toFixed(1));
+    }
+    document.getElementById('trail').setAttribute('d', parts.join(' '));
+  })();
+
+  /* ==================================================================
+     The order the cartographer works in
+     ================================================================== */
+
+  const SEQ = [
+    {t:'stroke', id:'frame',          dur:2600},
+    {t:'fade',   id:'rhumbGroup',     dur:900},
+    {t:'stroke', id:'coast',          dur:5600},
+    {t:'fade',   id:'coastFill',      dur:900},
+    {t:'stroke', id:'coastEcho',      dur:2000},
+    {t:'stroke', id:'isles',          dur:1700},
+    {t:'fade',   id:'islesFill',      dur:600},
+    {t:'stroke', id:'mountains',      dur:1900},
+    {t:'stroke', id:'mountShade',     dur:900},
+    {t:'stroke', id:'river',          dur:1500},
+    {t:'stroke', id:'forest',         dur:2800},
+    {t:'stroke', id:'compassRing',    dur:1700},
+    {t:'stroke', id:'compassStar',    dur:1500},
+    {t:'stroke', id:'compassMinor',   dur:700},
+    {t:'wipe',   id:'compassN',       dur:420},
+    {t:'stroke', id:'waves',          dur:2600},
+    {t:'stroke', id:'shipHull',       dur:1300},
+    {t:'fade',   id:'shipSails',      dur:700},
+    {t:'stroke', id:'shipFlag',       dur:520},
+    {t:'stroke', id:'serpent',        dur:2200},
+    {t:'stroke', id:'serpentEye',     dur:300},
+    {t:'stroke', id:'trail',          dur:2400},
+    {t:'stroke', id:'xMark',          dur:800},
+    {t:'wipe',   id:'xLabel',         dur:900},
+    {t:'stroke', id:'scaleBar',       dur:900},
+    {t:'wipe',   id:'scaleLabel',     dur:620},
+    {t:'stroke', id:'cartouche',      dur:1700},
+    {t:'stroke', id:'cartoucheInner', dur:1100},
+    {t:'wipe',   id:'titleText',      dur:2300},
+    {t:'wipe',   id:'subText',        dur:1200},
+    {t:'fade',   id:'splatter',       dur:340}
+  ];
+
+  const TEMPO     = 0.7;   // global pacing dial applied to every duration below
+  const GAP       = 140;   // pen-lift pause between features (ms at 1x)
+  const SVG_POINT = svg.createSVGPoint();
+  const defs      = svg.querySelector('defs');
+
+  // Measure once: stroke lengths, and a clip rect for each written label.
+  SEQ.forEach(function(step, i){
+    const el = document.getElementById(step.id);
+    step.el  = el;
+    step.dur = step.dur * TEMPO;
+
+    if (step.t === 'stroke'){
+      step.len = el.getTotalLength();
+      el.style.strokeDasharray = step.len;
+    } else if (step.t === 'wipe'){
+      const b  = el.getBBox();
+      const cp = document.createElementNS(SVGNS,'clipPath');
+      cp.setAttribute('id','wipe' + i);
+      const r = document.createElementNS(SVGNS,'rect');
+      r.setAttribute('x', b.x - 5);
+      r.setAttribute('y', b.y - 8);
+      r.setAttribute('height', b.height + 16);
+      r.setAttribute('width', 0);
+      cp.appendChild(r);
+      defs.appendChild(cp);
+      el.setAttribute('clip-path','url(#wipe' + i + ')');
+      step.rect = r;
+      step.box  = b;
+    }
+  });
+
+  // A path point in root coordinates, honouring any transform on the element.
+  function pointAt(step, dist){
+    const p = step.el.getPointAtLength(dist);
+    const m = step.el.getCTM();
+    if (!m) return p;
+    SVG_POINT.x = p.x;
+    SVG_POINT.y = p.y;
+    return SVG_POINT.matrixTransform(m);
+  }
+
+  const totalDur = SEQ.reduce(function(a,s){ return a + s.dur + GAP; }, 0);
+
+  /* ==================================================================
+     Playback
+     ================================================================== */
+
+  let idx = 0, stepStart = 0, elapsedBefore = 0, curP = 0;
+  let raf = null, speed = 1, done = false;
+  let lastPt = null, liftUntil = 0;
+
+  function reset(){
+    cancelAnimationFrame(raf);
+    idx = 0; elapsedBefore = 0; stepStart = 0; curP = 0;
+    done = false; lastPt = null; liftUntil = 0;
+
+    SEQ.forEach(function(s){
+      if (s.t === 'stroke')     s.el.style.strokeDashoffset = s.len;
+      else if (s.t === 'fade')  s.el.style.opacity = 0;
+      else                      s.rect.setAttribute('width', 0);
+    });
+
+    quill.setAttribute('opacity', 0);
+    wetInk.setAttribute('opacity', 0);
+    bar.style.width = '0%';
+    placeQuill(120, 620, 0);
+  }
+
+  function finishAll(){
+    cancelAnimationFrame(raf);
+    SEQ.forEach(function(s){
+      if (s.t === 'stroke')     s.el.style.strokeDashoffset = 0;
+      else if (s.t === 'fade')  s.el.style.opacity = 1;
+      else                      s.rect.setAttribute('width', s.box.width + 12);
+    });
+    quill.setAttribute('opacity', 0);
+    wetInk.setAttribute('opacity', 0);
+    bar.style.width = '100%';
+    done = true;
+    idx = SEQ.length;
+  }
+
+  function placeQuill(x, y, lift){
+    quill.setAttribute('transform',
+      'translate(' + x.toFixed(2) + ',' + (y - lift).toFixed(2) + ')');
+  }
+
+  // Start and finish each stroke unhurried, the way a hand does.
+  function ease(p){
+    return p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+  }
+
+  function frame(now){
+    if (!stepStart) stepStart = now;
+
+    const step = SEQ[idx];
+    // stepStart sits in the future during a pen-lift gap, so clamp at 0
+    const p = Math.max(0, Math.min(1, ((now - stepStart) * speed) / step.dur));
+    const e = ease(p);
+    curP = p;
+
+    let pt = null;
+
+    if (step.t === 'stroke'){
+      const at = step.len * e;
+      step.el.style.strokeDashoffset = step.len - at;
+      pt = pointAt(step, at);
+
+    } else if (step.t === 'wipe'){
+      step.rect.setAttribute('width', (step.box.width + 12) * e);
+      pt = { x: step.box.x - 5 + (step.box.width + 12) * e,
+             y: step.box.y + step.box.height };
+
+    } else {                       // fade: the hand rests, a wash goes on
+      step.el.style.opacity = e;
+      pt = lastPt;
+    }
+
+    if (pt){
+      // lift the pen whenever the nib jumps to a new subpath
+      if (lastPt && Math.hypot(pt.x - lastPt.x, pt.y - lastPt.y) > 26){
+        liftUntil = now + 130 / speed;
+      }
+      const lifted = now < liftUntil || step.t === 'fade';
+
+      placeQuill(pt.x, pt.y, lifted ? 13 : 0);
+      quill.setAttribute('opacity', 1);
+
+      // a little wrist movement so the quill never looks rigid
+      qBody.setAttribute('transform',
+        'rotate(' + (Math.sin((pt.x + pt.y) / 90) * 4).toFixed(2) + ')');
+
+      wetInk.setAttribute('cx', pt.x);
+      wetInk.setAttribute('cy', pt.y);
+      wetInk.setAttribute('opacity', lifted ? 0 : .45);
+
+      lastPt = { x: pt.x, y: pt.y };
+    }
+
+    bar.style.width =
+      Math.min(100, ((elapsedBefore + step.dur * p) / totalDur) * 100).toFixed(2) + '%';
+
+    if (p >= 1){
+      if (step.t === 'stroke') step.el.style.strokeDashoffset = 0;
+      elapsedBefore += step.dur + GAP;
+      idx++;
+      if (idx >= SEQ.length){ exitQuill(now); return; }
+      stepStart = now + GAP / speed;   // hand pauses before the next feature
+      liftUntil = now + GAP / speed;
+    }
+
+    raf = requestAnimationFrame(frame);
+  }
+
+  // The quill drifts off the page and the finished map stands alone.
+  function exitQuill(startedAt){
+    const from = lastPt || { x: 900, y: 660 };
+    const to   = { x: 1180, y: 790 };
+    const DUR  = 900;
+
+    wetInk.setAttribute('opacity', 0);
+    bar.style.width = '100%';
+
+    (function out(now){
+      const p = Math.min(1, ((now - startedAt) * speed) / DUR);
+      const e = 1 - Math.pow(1 - p, 3);
+      placeQuill(from.x + (to.x - from.x) * e, from.y + (to.y - from.y) * e, 22 * e);
+      quill.setAttribute('opacity', 1 - e);
+      if (p < 1) raf = requestAnimationFrame(out);
+      else { quill.setAttribute('opacity', 0); done = true; }
+    })(startedAt);
+  }
+
+  function play(){
+    reset();
+    stepStart = 0;
+    raf = requestAnimationFrame(frame);
+  }
+
+  /* ==================================================================
+     Controls
+     ================================================================== */
+
+  const SPEEDS   = [1, 2, 4, .5];
+  const speedBtn = document.getElementById('speed');
+  let sIdx = 0;
+
+  document.getElementById('replay').addEventListener('click', play);
+  document.getElementById('finish').addEventListener('click', finishAll);
+  speedBtn.addEventListener('click', function(){
+    sIdx  = (sIdx + 1) % SPEEDS.length;
+    speed = SPEEDS[sIdx];
+    speedBtn.innerHTML = 'Speed &times;' + speed;
+    // re-anchor the clock so the stroke in progress keeps its position
+    if (!done && idx < SEQ.length){
+      stepStart = performance.now() - (curP * SEQ[idx].dur) / speed;
+    }
+  });
+
+  // The drawing is the point, so it always animates. Anyone who would rather
+  // not watch it can jump straight to the finished map with "Skip to end".
+  play();
+})();
+</script>
+</body>
+</html>
